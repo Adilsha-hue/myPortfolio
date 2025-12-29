@@ -9,9 +9,17 @@ export function ProfileImage() {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="relative w-64 h-80 md:w-80 md:h-96 lg:w-96 lg:h-[480px]"
+      className="relative w-72 h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] flex items-center justify-center"
     >
-      <Image src="/images/profile.png" alt="Mohammed Adilsha Afsar M" fill className="object-cover" priority />
+      <Image
+        src="/images/Adilsha.png"
+        alt="Mohammed Adilsha Afsar M"
+        fill
+        className="object-contain scale-125"
+        priority
+      />
     </motion.div>
   )
 }
+
+
