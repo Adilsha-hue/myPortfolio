@@ -19,6 +19,9 @@ export function Navbar() {
     { href: "/blog", label: "Blog" },
   ]
 
+  const whatsappLink =
+    "https://wa.me/919946686844?text=Hi%20Adilsha,%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20connect."
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b">
       <div className="container mx-auto px-4">
@@ -40,11 +43,24 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Button className="bg-blue-600 hover:bg-blue-700">Contact</Button>
+
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                Contact
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2" aria-label="Toggle menu">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2"
+            aria-label="Toggle menu"
+          >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -71,7 +87,17 @@ export function Navbar() {
                     {link.label}
                   </Link>
                 ))}
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">Contact</Button>
+
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                    Contact on WhatsApp
+                  </Button>
+                </a>
               </div>
             </motion.div>
           )}
@@ -80,3 +106,4 @@ export function Navbar() {
     </nav>
   )
 }
+
