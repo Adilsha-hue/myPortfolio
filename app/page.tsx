@@ -61,113 +61,126 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 px-4 bg-blue-50">
-        <div className="container mx-auto">
-          <motion.div {...fadeInUp} className="text-center mb-12">
-            <Badge className="mb-4 bg-blue-600">Services</Badge>
-            <h2 className="text-4xl font-bold mb-4">What I Offer</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Specialized services combining robotics education and creative design solutions
-            </p>
-          </motion.div>
+<section className="py-16 px-4 bg-blue-50">
+  <div className="container mx-auto">
+    <motion.div {...fadeInUp} className="text-center mb-12">
+      <Badge className="mb-4 bg-blue-600">Services</Badge>
+      <h2 className="text-4xl font-bold mb-4">What I Offer</h2>
+      <p className="text-gray-600 max-w-2xl mx-auto">
+        Specialized services combining robotics education and creative design solutions
+      </p>
+    </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: <Cpu className="w-8 h-8" />,
-                title: "Robotics Training",
-                description: "Hands-on robotics courses for students and educators",
-              },
-              {
-                icon: <Palette className="w-8 h-8" />,
-                title: "Graphic Design",
-                description: "Creative visual solutions for brands and businesses",
-              },
-              {
-                icon: <GraduationCap className="w-8 h-8" />,
-                title: "STEM Education",
-                description: "Innovative curriculum development for STEM programs",
-              },
-              {
-                icon: <Code className="w-8 h-8" />,
-                title: "Programming",
-                description: "Arduino, Python, and robotics programming courses",
-              },
-            ].map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer">
-                  <CardContent className="p-6 space-y-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-                      {service.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold">{service.title}</h3>
-                    <p className="text-gray-600">{service.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        {
+          icon: <Cpu className="w-8 h-8" />,
+          title: "Robotics Training",
+          description: "Hands-on robotics courses for students and educators",
+        },
+        {
+          icon: <Palette className="w-8 h-8" />,
+          title: "Graphic Design",
+          description: "Creative visual solutions for brands and businesses",
+        },
+        {
+          icon: <GraduationCap className="w-8 h-8" />,
+          title: "STEM Education",
+          description: "Innovative curriculum development for STEM programs",
+        },
+        {
+          icon: <Code className="w-8 h-8" />,
+          title: "Programming",
+          description: "Arduino, Python, and robotics programming courses",
+        },
+      ].map((service, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1 }}
+          viewport={{ once: true }}
+        >
+          <Link href="/services" className="block h-full">
+            <Card className="h-full hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer">
+              <CardContent className="p-6 space-y-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-semibold">{service.title}</h3>
+                <p className="text-gray-600">{service.description}</p>
+              </CardContent>
+            </Card>
+          </Link>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Featured Projects */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto">
-          <motion.div {...fadeInUp} className="text-center mb-12">
-            <Badge className="mb-4 bg-blue-600">Portfolio</Badge>
-            <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Explore my latest work in robotics training and graphic design
-            </p>
-          </motion.div>
+<section className="py-16 px-4">
+  <div className="container mx-auto">
+    <motion.div {...fadeInUp} className="text-center mb-12">
+      <Badge className="mb-4 bg-blue-600">Portfolio</Badge>
+      <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
+      <p className="text-gray-600 max-w-2xl mx-auto">
+        Explore my latest work in robotics training and graphic design
+      </p>
+    </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "STEM Robotics Curriculum",
-                category: "Education",
-                image: "/placeholder.svg?height=300&width=400&text=Robotics+Curriculum",
-              },
-              {
-                title: "Brand Identity Design",
-                category: "Design",
-                image: "/placeholder.svg?height=300&width=400&text=Brand+Identity",
-              },
-              {
-                title: "Arduino Workshop Series",
-                category: "Training",
-                image: "/placeholder.svg?height=300&width=400&text=Arduino+Workshop",
-              },
-            ].map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
-                  <div className="relative h-48 bg-gradient-to-br from-blue-400 to-purple-500 group-hover:scale-110 transition-transform duration-300">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Badge className="bg-white text-blue-600">{project.category}</Badge>
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                    <p className="text-gray-600">View project details →</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {[
+        {
+          title: "STEM Robotics Curriculum",
+          category: "Education",
+          href: "/projects",
+        },
+        {
+          title: "Brand Identity Design",
+          category: "Design",
+          href: "/projects",
+        },
+        {
+          title: "Arduino Workshop Series",
+          category: "Training",
+          href: "/projects",
+        },
+      ].map((project, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1 }}
+          viewport={{ once: true }}
+        >
+          <Link href={project.href} className="block h-full">
+            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group">
+              <div className="relative h-48 bg-gradient-to-br from-blue-400 to-purple-500 group-hover:scale-110 transition-transform duration-300">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Badge className="bg-white text-blue-600">
+                    {project.category}
+                  </Badge>
+                </div>
+              </div>
+
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600">
+                  View project details →
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
       {/* Testimonials */}
       <section className="py-16 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
