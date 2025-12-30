@@ -51,9 +51,11 @@ export default function HomePage() {
               </p>
 
               <div className="flex gap-4">
-                <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+                <Link href="/projects">
+                 <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
                   View My Work <ArrowRight className="ml-2" size={18} />
-                </Button>
+                 </Button>
+                </Link>
 
                 {/* Contact Page Link */}
                 <Link href="/contact">
