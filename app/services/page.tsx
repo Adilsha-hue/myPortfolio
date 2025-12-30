@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -103,9 +104,11 @@ export default function ServicesPage() {
           >
             <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-xl mb-8 opacity-90">Contact me today to discuss how I can help with your project</p>
+            <Link href="/contact">
             <Button size="lg" variant="secondary" className="bg-white text-blue-600 hover:bg-gray-100">
               Contact Me
             </Button>
+            </Link>
           </motion.div>
         </div>
       </section>

@@ -19,13 +19,12 @@ export function Navbar() {
     { href: "/blog", label: "Blog" },
   ]
 
-  const whatsappLink =
-    "https://wa.me/919946686844?text=Hi%20Adilsha,%20I%20visited%20your%20portfolio%20and%20would%20like%20to%20connect."
-
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
+          
+          {/* Logo */}
           <Link href="/" className="text-xl font-bold text-blue-600">
             Adilsha
           </Link>
@@ -37,22 +36,21 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={`text-sm font-medium transition-colors hover:text-blue-600 ${
-                  pathname === link.href ? "text-blue-600" : "text-gray-600"
+                  pathname === link.href
+                    ? "text-blue-600"
+                    : "text-gray-600"
                 }`}
               >
                 {link.label}
               </Link>
             ))}
 
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            {/* Contact Button */}
+            <Link href="/contact">
               <Button className="bg-blue-600 hover:bg-blue-700">
                 Contact
               </Button>
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -81,23 +79,21 @@ export function Navbar() {
                     href={link.href}
                     onClick={() => setIsOpen(false)}
                     className={`block text-sm font-medium transition-colors hover:text-blue-600 ${
-                      pathname === link.href ? "text-blue-600" : "text-gray-600"
+                      pathname === link.href
+                        ? "text-blue-600"
+                        : "text-gray-600"
                     }`}
                   >
                     {link.label}
                   </Link>
                 ))}
 
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsOpen(false)}
-                >
+                {/* Mobile Contact Button */}
+                <Link href="/contact" onClick={() => setIsOpen(false)}>
                   <Button className="w-full bg-blue-600 hover:bg-blue-700">
-                    Contact on WhatsApp
+                    Contact
                   </Button>
-                </a>
+                </Link>
               </div>
             </motion.div>
           )}
@@ -106,4 +102,3 @@ export function Navbar() {
     </nav>
   )
 }
-
