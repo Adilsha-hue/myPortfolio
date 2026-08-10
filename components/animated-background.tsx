@@ -12,6 +12,15 @@ export function AnimatedBackground() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return
+    }
+
+    let frameId = 0
+
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
 
@@ -45,7 +54,7 @@ export function AnimatedBackground() {
 
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, 2, 0, Math.PI * 2)
-        ctx.fillStyle = "rgba(59, 130, 246, 0.5)"
+        ctx.fillStyle = "rgba(37, 99, 235, 0.5)"
         ctx.fill()
 
         particles.forEach((particle2, j) => {
@@ -58,17 +67,17 @@ export function AnimatedBackground() {
               ctx.beginPath()
               ctx.moveTo(particle.x, particle.y)
               ctx.lineTo(particle2.x, particle2.y)
-              ctx.strokeStyle = `rgba(59, 130, 246, ${0.2 * (1 - distance / 100)})`
+              ctx.strokeStyle = `rgba(37, 99, 235, ${0.2 * (1 - distance / 100)})`
               ctx.stroke()
             }
           }
         })
       })
 
-      requestAnimationFrame(animate)
+      frameId = requestAnimationFrame(animate)
     }
 
-    animate()
+    frameId = requestAnimationFrame(animate)
 
     const handleResize = () => {
       canvas.width = window.innerWidth
@@ -78,9 +87,10 @@ export function AnimatedBackground() {
     window.addEventListener("resize", handleResize)
 
     return () => {
+      cancelAnimationFrame(frameId)
       window.removeEventListener("resize", handleResize)
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.3 }} />
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" style={{ opacity: 0.25 }} />
 }

@@ -1,4 +1,5 @@
 "use client"
+import { useMemo, useState } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
@@ -6,52 +7,16 @@ import { Badge } from "@/components/ui/badge"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { AnimatedBackground } from "@/components/animated-background"
+import { ProjectCover } from "@/components/project-cover"
+import { projects, projectCategories } from "@/lib/projects"
 
 export default function ProjectsPage() {
-  const projects = [
-    {
-      title: "STEM Robotics Curriculum",
-      category: "Education",
-      tags: ["Robotics", "Education", "Arduino"],
-      description: "Comprehensive robotics curriculum for middle and high school students",
-      image: "/placeholder.svg?height=300&width=400&text=Robotics+Curriculum",
-    },
-    {
-      title: "Brand Identity Design",
-      category: "Design",
-      tags: ["Branding", "Logo", "Visual Identity"],
-      description: "Complete brand identity package for a tech startup",
-      image: "/placeholder.svg?height=300&width=400&text=Brand+Identity",
-    },
-    {
-      title: "Arduino Workshop Series",
-      category: "Training",
-      tags: ["Workshop", "Arduino", "Programming"],
-      description: "5-week intensive Arduino programming workshop for beginners",
-      image: "/placeholder.svg?height=300&width=400&text=Arduino+Workshop",
-    },
-    {
-      title: "Educational Posters",
-      category: "Design",
-      tags: ["Education", "Print", "Graphics"],
-      description: "Series of educational posters for STEM lab environment",
-      image: "/placeholder.svg?height=300&width=400&text=Educational+Posters",
-    },
-    {
-      title: "Robot Competition Prep",
-      category: "Training",
-      tags: ["Competition", "Robotics", "Mentoring"],
-      description: "Training program for regional robotics competition teams",
-      image: "/placeholder.svg?height=300&width=400&text=Competition+Prep",
-    },
-    {
-      title: "Marketing Campaign",
-      category: "Design",
-      tags: ["Marketing", "Social Media", "Design"],
-      description: "Complete marketing campaign design for educational institution",
-      image: "/placeholder.svg?height=300&width=400&text=Marketing+Campaign",
-    },
-  ]
+  const [active, setActive] = useState("All")
+
+  const filtered = useMemo(
+    () => (active === "All" ? projects : projects.filter((p) => p.category === active)),
+    [active],
+  )
 
   return (
     <div className="min-h-screen relative">
@@ -60,41 +25,68 @@ export default function ProjectsPage() {
 
       <section className="pt-24 pb-16 px-4">
         <div className="container mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
-            <Badge className="mb-4 bg-blue-600">Portfolio</Badge>
-            <h1 className="text-5xl font-bold mb-4">My Projects</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              A showcase of my work in robotics training, graphic design, and STEM education
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
+            <Badge className="mb-4">Portfolio</Badge>
+            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4 tracking-tight">My Projects</h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Embedded systems, robotics, IoT, STEM education and IT infrastructure.
             </p>
           </motion.div>
 
+          {/* Filter */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12" role="group" aria-label="Filter projects">
+            {projectCategories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActive(cat)}
+                aria-pressed={active === cat}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
+                  active === cat
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
+            {filtered.map((project, index) => (
               <motion.div
-                key={index}
+                key={project.slug}
+                layout
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
+                transition={{ delay: index * 0.05, duration: 0.4 }}
+                viewport={{ once: true, margin: "-40px" }}
               >
-                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer group h-full">
-                  <div className="relative h-56 bg-gradient-to-br from-blue-400 to-purple-500 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Badge className="bg-white text-blue-600">{project.category}</Badge>
-                    </div>
-                  </div>
-                  <CardContent className="p-6 space-y-4">
-                    <h3 className="text-xl font-bold">{project.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, idx) => (
-                        <Badge key={idx} variant="secondary" className="text-xs">
-                          {tag}
+                <Link href={`/projects/${project.slug}`} className="group block h-full">
+                  <Card className="h-full overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <ProjectCover
+                      icon={project.icon}
+                      gradient={project.gradient}
+                      title={project.title}
+                      tags={project.tags}
+                    />
+                    <CardContent className="p-6 space-y-3">
+                      <div className="flex items-center justify-between gap-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {project.category}
                         </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                      </div>
+                      <h3 className="text-lg font-bold leading-snug group-hover:text-primary transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                        {project.summary}
+                      </p>
+                      <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
+                        View case study →
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
               </motion.div>
             ))}
           </div>
