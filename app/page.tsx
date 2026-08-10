@@ -77,9 +77,9 @@ export default function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="pt-28 pb-16 px-4">
+      <section className="pt-20 pb-16 px-4">
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <motion.div {...fadeInUp} className="space-y-7">
               <div className="flex items-center gap-2">
                 <Badge variant="secondary" className="gap-1.5 py-1 px-3">
@@ -126,15 +126,23 @@ export default function HomePage() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="flex flex-col items-center gap-6"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="relative flex flex-col items-center gap-5 max-w-sm mx-auto lg:mx-0 lg:max-w-sm"
             >
-              <ProfileImage />
+              {/* Profile image - on top */}
+              <div className="relative z-10">
+                <ProfileImage />
+              </div>
 
-              {/* Terminal-style identity card */}
-              <div className="w-full max-w-sm rounded-xl border bg-card shadow-md overflow-hidden">
+              {/* Terminal card - below image */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="w-full max-w-sm rounded-xl border bg-card shadow-lg overflow-hidden"
+              >
                 <div className="flex items-center gap-1.5 px-4 py-2.5 bg-muted/60 border-b">
                   <span className="w-3 h-3 rounded-full bg-red-400" aria-hidden="true" />
                   <span className="w-3 h-3 rounded-full bg-yellow-400" aria-hidden="true" />
@@ -161,7 +169,7 @@ export default function HomePage() {
                     <span className="animate-pulse text-foreground ml-1">▌</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>

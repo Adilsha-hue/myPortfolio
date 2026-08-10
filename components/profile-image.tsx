@@ -6,20 +6,22 @@ import { motion } from "framer-motion"
 export function ProfileImage() {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      className="relative w-72 h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] flex items-center justify-center"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="relative w-56 h-[280px] md:w-64 md:h-[320px] lg:w-72 lg:h-[360px]"
     >
+      {/* Subtle background glow */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-orange-200/40 via-amber-100/30 to-transparent rounded-3xl blur-xl dark:from-orange-900/20 dark:via-amber-900/10" />
+      
       <Image
         src="/images/Adilsha.png"
         alt="Mohammed Adilsha Afsar M"
-        fill
-        className="object-contain scale-125"
+        width={420}
+        height={520}
+        className="w-full h-full object-contain drop-shadow-lg"
         priority
       />
     </motion.div>
   )
 }
-
-
