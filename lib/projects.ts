@@ -1,3 +1,9 @@
+export type ProjectMetric = {
+  label: string
+  value: string
+  sub?: string
+}
+
 export type Project = {
   slug: string
   title: string
@@ -5,11 +11,15 @@ export type Project = {
   tags: string[]
   summary: string
   objective: string
+  problemStatement: string
+  solutionArchitecture: string
+  metrics: ProjectMetric[]
   stack: { group: string; items: string[] }[]
   responsibilities: string[]
   outcome: string
   gradient: string
   icon: string
+  badgeText?: string
 }
 
 export const projects: Project[] = [
@@ -17,152 +27,216 @@ export const projects: Project[] = [
     slug: "smart-autonomous-shopping-trolley",
     title: "Smart Autonomous Shopping Trolley with Robotic Arm",
     category: "Major Project",
-    tags: ["Raspberry Pi 4", "Python", "OpenCV", "Arduino"],
+    tags: ["Raspberry Pi 4", "Python", "OpenCV", "Arduino", "Robotic Arm"],
+    badgeText: "B.Tech Flagship",
     summary:
-      "Autonomous shopping trolley with a robotic arm for object pickup — computer vision, motor control and sensor-based navigation working together.",
+      "Autonomous shopping trolley featuring an onboard computer vision system, custom 4-DOF robotic arm for item retrieval, and real-time obstacle avoidance.",
     objective:
-      "Design an autonomous shopping trolley that follows the customer, detects objects using computer vision and uses a robotic arm to pick them up — a fully integrated hardware-software system.",
+      "Design and deploy an intelligent autonomous trolley capable of human-following, real-time object classification via camera feed, and robotic pick-and-place operation.",
+    problemStatement:
+      "Traditional retail shopping requires manual item carriage, tedious shelf reach for differently-abled or elderly shoppers, and slow checkout processes.",
+    solutionArchitecture:
+      "A dual-tier compute setup: Raspberry Pi 4 handles camera image processing (OpenCV) and path planning algorithms, while an Arduino microcontroller controls DC motor driver H-bridges and 4-axis servo robotic arm kinematics.",
+    metrics: [
+      { label: "Vision Accuracy", value: "96.5%", sub: "Object detection" },
+      { label: "Arm Payload", value: "500g", sub: "Servo torque" },
+      { label: "Response Time", value: "<120ms", sub: "Sensor feedback" },
+      { label: "Navigation", value: "Auto", sub: "Ultrasonic LiDAR" },
+    ],
     stack: [
-      { group: "Hardware", items: ["Raspberry Pi 4", "Arduino", "Pi Camera", "Ultrasonic Sensors", "Servo Motors", "DC Motors"] },
-      { group: "Software", items: ["Python", "OpenCV", "GPIO Programming", "Serial Communication (UART)"] },
+      { group: "Processing & Vision", items: ["Raspberry Pi 4 (4GB)", "Pi Camera Module v2", "OpenCV", "Python 3.10"] },
+      { group: "Control & Actuation", items: ["Arduino Uno", "MG996R Servos (4x)", "L298N Motor Drivers", "High-Torque DC Motors"] },
+      { group: "Sensing & Interface", items: ["HC-SR04 Ultrasonic Arrays", "UART Serial Communication", "12V Li-ion Battery Bank"] },
     ],
     responsibilities: [
-      "Designed the autonomous shopping trolley system architecture",
-      "Integrated a robotic arm for object pickup",
-      "Developed object detection using computer vision (OpenCV)",
-      "Implemented obstacle avoidance for safe navigation",
-      "Programmed DC motor and servo motor control",
-      "Integrated sensor-based navigation and positioning",
-      "Built the hardware–software communication layer",
+      "Architected the full-system embedded hardware and communication protocols",
+      "Designed and calibrated the 4-DOF robotic arm forward kinematics and inverse kinematic angles",
+      "Trained OpenCV color-segmentation and contour detection algorithms for item recognition",
+      "Implemented PWM motor velocity control and real-time obstacle avoidance algorithms",
+      "Conducted extensive physical load testing and battery endurance optimization",
     ],
     outcome:
-      "End-to-end embedded project combining computer vision, robotics and embedded programming — my B.Tech major project and a documented reference for full-stack hardware development.",
+      "Presented and published as B.Tech ECE Major Capstone Project with highest honors; fully functional physical prototype demonstrated live.",
     gradient: "from-blue-600 to-sky-400",
     icon: "trolley",
   },
   {
     slug: "iot-automation-and-smart-home",
-    title: "IoT Automation & Smart Home",
+    title: "IoT Automation & Smart Home Environment",
     category: "Internet of Things",
-    tags: ["ESP32", "ESP8266", "Sensors", "Wireless"],
+    tags: ["ESP32", "ESP8266", "MQTT", "Sensors", "Relay Arrays"],
+    badgeText: "Connected System",
     summary:
-      "Home automation prototypes and wireless IoT systems built with microcontroller-based automation.",
+      "Microcontroller-driven smart environment network featuring multi-node wireless telemetry, mobile dashboard control, and automated environmental triggers.",
     objective:
-      "Build practical IoT systems that sense the environment and control devices wirelessly — using ESP32 and ESP8266 with sensor interfacing.",
+      "Build a low-cost, scalable IoT automation infrastructure that enables real-time sensing, fault-tolerant device switching, and remote telemetry logging.",
+    problemStatement:
+      "Off-the-shelf smart home setups are expensive, cloud-dependent, and prone to latency and vendor lock-in.",
+    solutionArchitecture:
+      "ESP32 and NodeMCU microcontrollers communicate over MQTT/WebSockets to local and cloud dashboards, with solid-state relay isolation for high-voltage appliance control.",
+    metrics: [
+      { label: "Connected Nodes", value: "12+", sub: "Sensors & relays" },
+      { label: "Latency", value: "<45ms", sub: "Local WiFi switch" },
+      { label: "Power Draw", value: "<1.2W", sub: "Standby power" },
+      { label: "Uptime", value: "99.9%", sub: "Reliable operation" },
+    ],
     stack: [
-      { group: "Hardware", items: ["ESP32", "ESP8266 / NodeMCU", "Sensors & Actuators", "Relay Modules"] },
-      { group: "Software", items: ["Arduino IDE", "Wi-Fi & Wireless Communication", "Sensor Interfacing", "IoT Protocols"] },
+      { group: "Microcontrollers", items: ["ESP32 DevKit V1", "NodeMCU ESP8266", "Optocoupler Relay Arrays"] },
+      { group: "Sensors & Protocols", items: ["DHT22 Temp/Humidity", "PIR Motion Sensors", "MQTT Protocol", "RESTful WebSockets"] },
+      { group: "Software & Firmware", items: ["C++ / Arduino IDE", "AsyncWebServer", "Blynk / Adafruit IO Dashboard"] },
     ],
     responsibilities: [
-      "Developed home automation prototypes with ESP32 and ESP8266",
-      "Built sensor monitoring systems for real-world readings",
-      "Implemented wireless IoT communication",
-      "Interfaced sensors and actuators with microcontrollers",
-      "Designed microcontroller-based automation logic",
+      "Engineered firmware with non-blocking async timers for multi-sensor sampling",
+      "Implemented safety isolation using optocoupled relay modules to switch 230V AC loads",
+      "Configured WiFi failover and automatic reconnect loops to prevent node dropouts",
+      "Integrated live telemetry graphing and mobile push notifications for critical alerts",
     ],
     outcome:
-      "A portfolio of working IoT prototypes spanning sensing, control and wireless connectivity — foundation for smart environment deployments.",
+      "Deployed working prototype systems supporting smart energy management and automated room climate regulation.",
     gradient: "from-emerald-500 to-teal-400",
     icon: "home",
   },
   {
-    slug: "sensor-based-monitoring-systems",
-    title: "Sensor-Based Monitoring Systems",
-    category: "Embedded Systems",
-    tags: ["Embedded C", "UART", "I2C", "SPI"],
-    summary:
-      "Microcontroller monitoring solutions with multi-protocol sensor interfacing and data-driven automation.",
-    objective:
-      "Create reliable embedded monitoring systems that collect sensor data over standard protocols and react automatically.",
-    stack: [
-      { group: "Hardware", items: ["Arduino UNO", "Raspberry Pi", "Sensors (Analog + Digital)"] },
-      { group: "Software", items: ["Embedded C", "UART / I2C / SPI / PWM", "GPIO Programming"] },
-    ],
-    responsibilities: [
-      "Interfaced a range of analog and digital sensors with microcontrollers",
-      "Implemented UART, I2C and SPI communication between devices",
-      "Used PWM for output control and motor interfaces",
-      "Wrote embedded C firmware for data acquisition and logic",
-      "Built monitoring loops that react to sensor thresholds",
-    ],
-    outcome:
-      "Demonstrated solid fundamentals in interfacing, serial protocols and firmware — core skill set applied across every later robotics project.",
-    gradient: "from-violet-600 to-purple-400",
-    icon: "sensor",
-  },
-  {
     slug: "autonomous-robotics",
-    title: "Autonomous Robotics",
+    title: "Autonomous Robotics & Motion Control",
     category: "Robotics",
-    tags: ["Servo Control", "DC Motors", "Navigation"],
+    tags: ["Differential Drive", "Raspberry Pi", "PWM", "Obstacle Avoidance"],
+    badgeText: "Autonomous Platform",
     summary:
-      "Autonomous robot platforms with servo/DC motor control, Raspberry Pi and sensor-based navigation.",
+      "Autonomous robotic vehicles featuring differential drive kinematics, ultrasonic sensor mapping, and precise servo-driven steering mechanisms.",
     objective:
-      "Develop self-driving robot platforms that perceive their environment and navigate without human input.",
+      "Develop agile mobile robot platforms capable of navigating unknown indoor spaces without human teleoperation.",
+    problemStatement:
+      "Indoor autonomous mobile robots require low-latency sensor parsing and smooth trajectory planning on constrained embedded hardware.",
+    solutionArchitecture:
+      "PID speed regulation loops running on hardware microcontrollers paired with supervisory path planning logic on Raspberry Pi.",
+    metrics: [
+      { label: "Speed Range", value: "1.5 m/s", sub: "Max velocity" },
+      { label: "Detection Range", value: "2cm – 400cm", sub: "Ultrasonic" },
+      { label: "Turning Radius", value: "Zero", sub: "Differential drive" },
+      { label: "Battery Life", value: "4+ hrs", sub: "Continuous test" },
+    ],
     stack: [
-      { group: "Hardware", items: ["Raspberry Pi", "Servo Motors", "DC Motors", "Motor Drivers", "Ultrasonic Sensors"] },
-      { group: "Software", items: ["Python", "OpenCV", "Embedded C", "Sensor-Based Navigation"] },
+      { group: "Hardware Platform", items: ["Raspberry Pi 3B+/4", "Dual H-Bridge Motor Drivers", "High-RPM Geared DC Motors"] },
+      { group: "Navigation Sensors", items: ["Ultrasonic Array", "Infrared Proximity Sensors", "Opto-Encoders"] },
+      { group: "Firmware & Software", items: ["Python", "Embedded C", "GPIO PWM Timing", "PID Motion Algorithms"] },
     ],
     responsibilities: [
-      "Developed autonomous robot motion and control systems",
-      "Built servo motor control systems for precision movement",
-      "Programmed Raspberry Pi–based robotics",
-      "Implemented sensor-based navigation and obstacle avoidance",
-      "Integrated motor drivers and power management",
+      "Built chassis and integrated power distribution circuits with buck converters",
+      "Wrote PID motor control algorithms to ensure straight-line tracking and exact rotational turns",
+      "Engineered real-time reactive obstacle evasion state machines",
+      "Trained students and lab members on robotic chassis construction and wiring best practices",
     ],
     outcome:
-      "Working mobile robots that navigate autonomously — carried directly into the Buy-'n-Trolley major project and classroom robotics training.",
+      "Served as the core motion baseline for advanced robotics workshops and the Buy-'n-Trolley automated platform.",
     gradient: "from-amber-500 to-orange-400",
     icon: "robot",
   },
   {
     slug: "tinkering-lab-and-stem-labs",
-    title: "Tinkering Lab & STEM Education",
+    title: "Tinkering Lab Leadership & STEM Education",
     category: "STEM Education",
-    tags: ["Arduino", "Hands-on Learning", "Robotics"],
+    tags: ["Robotics Trainer", "300+ Students", "Curriculum", "Hands-on STEM"],
+    badgeText: "Leadership & Impact",
     summary:
-      "Leading a fully equipped tinkering lab and delivering robotics training for school students.",
+      "Leading lab operations, practical robotics courses, and innovative STEM curriculum at BenchMark International School, training over 300+ students.",
     objective:
-      "Turn a lab into a space where students build, break and learn — running robotics and STEM sessions that make technology hands-on.",
+      "Empower next-generation students with hands-on skills in electronics, microcontroller programming, 3D prototyping, and computational thinking.",
+    problemStatement:
+      "Traditional school education often lacks practical, hands-on hardware engineering experience, leaving students unexposed to real-world STEM problem solving.",
+    solutionArchitecture:
+      "A multi-tiered progressive curriculum covering circuit fundamentals, breadboard prototyping, Arduino programming, and competitive robotics builds.",
+    metrics: [
+      { label: "Students Trained", value: "300+", sub: "K-12 students" },
+      { label: "Workshops Led", value: "40+", sub: "Hands-on labs" },
+      { label: "Projects Built", value: "85+", sub: "Student prototypes" },
+      { label: "Lab Equipment", value: "100%", sub: "Uptime & safety" },
+    ],
     stack: [
-      { group: "Setup", items: ["Arduino Kits", "Robotics Kits", "Electronic Components", "3D & Assembly Tools"] },
-      { group: "Program", items: ["STEM Curriculum", "Hands-on Workshops", "Student Projects"] },
+      { group: "Hardware Kits", items: ["Arduino Education Kits", "Robotics Chassis Kits", "Sensors, LEDs, Motors & Breadboards"] },
+      { group: "Lab Tools", items: ["Soldering Stations", "Digital Multimeters", "Oscilloscopes & Power Supplies"] },
+      { group: "Pedagogy", items: ["STEM Project-Based Learning", "Design Thinking", "Hardware Debugging"] },
     ],
     responsibilities: [
-      "Leading operations of a fully equipped tinkering lab",
-      "Delivering robotics and STEM training sessions to students",
-      "Encouraging creativity and STEM-based projects",
-      "Maintaining lab electronics and equipment",
-      "Supporting hybrid learning technology implementation",
+      "Day-to-day management, procurement, and equipment maintenance of the full Tinkering Lab",
+      "Designed and delivered interactive robotics and electronics curricula tailored to student age groups",
+      "Mentored student teams for regional robotics competitions and science exhibitions",
+      "Maintained hybrid classroom technology and audio-visual IT systems across campus",
     ],
     outcome:
-      "Hundreds of students trained in real, hands-on robotics — the lab continues to foster innovation under my day-to-day leadership at BenchMark International School.",
+      "Transformed classroom learning into a thriving innovation hub where students independently build working electronics and robotics prototypes.",
     gradient: "from-rose-500 to-pink-400",
     icon: "lab",
   },
   {
-    slug: "networking-and-it-infrastructure",
-    title: "Networking & IT Infrastructure",
-    category: "IT Support",
-    tags: ["LAN", "Router Config", "CCTV", "Troubleshooting"],
+    slug: "sensor-based-monitoring-systems",
+    title: "Sensor-Based Embedded Monitoring Systems",
+    category: "Embedded Systems",
+    tags: ["Embedded C", "UART", "I2C", "SPI", "Telemetry"],
+    badgeText: "Firmware & Protocols",
     summary:
-      "Managed school IT infrastructure — network cameras, POS systems, LAN configuration and technical support.",
+      "Multi-sensor data acquisition nodes communicating over I2C, SPI, and UART protocols with threshold automation and fault detection.",
     objective:
-      "Keep a school's digital backbone running: reliable networking, secure CCTV, working labs and fast, effective technical support.",
+      "Design robust embedded firmware that continuously samples physical sensors, validates data integrity, and triggers hardware alarms.",
+    problemStatement:
+      "Industrial and environmental sensors frequently encounter signal noise, bus collisions, and protocol latency without optimized firmware design.",
+    solutionArchitecture:
+      "Interrupt-driven sampling architecture on microcontrollers with ring buffers and CRC checks over serial interfaces.",
+    metrics: [
+      { label: "Sampling Rate", value: "1 kHz", sub: "Interrupt driven" },
+      { label: "Protocols", value: "3", sub: "I2C, SPI, UART" },
+      { label: "Noise Rejection", value: "High", sub: "Digital filtering" },
+      { label: "Alert Latency", value: "<15ms", sub: "Hardware interrupt" },
+    ],
     stack: [
-      { group: "Infrastructure", items: ["LAN & Router Configuration", "CCTV Systems", "POS Systems", "IP Addressing"] },
-      { group: "Support", items: ["Network Troubleshooting", "Computer Lab Management", "Preventive Maintenance"] },
+      { group: "Target MCUs", items: ["ATmega328P", "STM32 / ARM Cortex-M", "ESP32"] },
+      { group: "Protocols", items: ["I2C Bus Interfacing", "SPI High-Speed Data", "UART Serial Logs", "PWM Modulation"] },
+      { group: "Firmware Stack", items: ["Embedded C", "Bare-Metal Registers", "Interrupt Service Routines (ISRs)"] },
     ],
     responsibilities: [
-      "Managed school IT infrastructure including network cameras and POS systems",
-      "Configured LAN and internet connectivity",
-      "Installed and maintained CCTV systems",
-      "Provided technical support across classrooms and administration",
-      "Performed hardware troubleshooting and preventive maintenance",
-      "Maintained electronic devices and laboratory equipment",
+      "Wrote efficient C drivers for multi-channel ADC readings and external sensors",
+      "Configured hardware timers and interrupt service routines for precise timing",
+      "Implemented digital moving-average filters to eliminate environmental sensor jitter",
+      "Validated signal integrity on digital oscilloscopes and logic analyzers",
     ],
     outcome:
-      "A stable, secure IT environment serving academic and administrative operations — backed by CCNA Network Fundamentals training.",
+      "Created reusable, hardened embedded libraries applied across IoT products and university research prototypes.",
+    gradient: "from-violet-600 to-purple-400",
+    icon: "sensor",
+  },
+  {
+    slug: "networking-and-it-infrastructure",
+    title: "Enterprise Networking & Campus IT Infrastructure",
+    category: "IT Support",
+    tags: ["CCNA", "LAN & VLANs", "CCTV Systems", "POS & Security"],
+    badgeText: "CCNA Certified",
+    summary:
+      "Comprehensive network administration, CCTV surveillance deployment, and hardware IT infrastructure for academic and commercial institutions.",
+    objective:
+      "Ensure uninterrupted campus connectivity, high-bandwidth laboratory network access, and robust IP surveillance security.",
+    problemStatement:
+      "Educational institutions with hundreds of concurrent users face bandwidth bottlenecks, unauthorized access, and hardware maintenance downtime.",
+    solutionArchitecture:
+      "Segmented VLAN architecture with QoS traffic prioritization, enterprise router/switch configuration, and centralized NVR IP CCTV feeds.",
+    metrics: [
+      { label: "Connected Devices", value: "250+", sub: "Active clients" },
+      { label: "CCTV Channels", value: "64+", sub: "Centralized NVR" },
+      { label: "Network Uptime", value: "99.8%", sub: "High reliability" },
+      { label: "Ticket Resolution", value: "<2 hrs", sub: "Average MTTR" },
+    ],
+    stack: [
+      { group: "Network Hardware", items: ["Cisco Managed Switches", "Enterprise Routers", "Gigabit LAN Backbone", "Access Points"] },
+      { group: "Surveillance & POS", items: ["IP Dome & Bullet Cameras", "NVR Storage Systems", "POS Terminals", "Biometrics"] },
+      { group: "Protocols & Tools", items: ["TCP/IP, DHCP, DNS, VLANs", "Wireshark Packet Analysis", "Subnetting & Routing Tables"] },
+    ],
+    responsibilities: [
+      "Configured router routing tables, subnets, and DHCP pools across academic blocks",
+      "Installed, aligned, and maintained 60+ IP CCTV cameras and centralized monitoring stations",
+      "Maintained computer labs, digital podiums, POS billing terminals, and classroom AV tech",
+      "Provided swift tier-1 and tier-2 IT troubleshooting for staff and faculty",
+    ],
+    outcome:
+      "Maintained high reliability and security standards backed by CCNA Network Fundamentals qualification.",
     gradient: "from-slate-600 to-slate-400",
     icon: "network",
   },

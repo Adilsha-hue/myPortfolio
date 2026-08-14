@@ -1,97 +1,106 @@
 "use client"
-import { useMemo, useState } from "react"
+
+import { useState } from "react"
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { AnimatedBackground } from "@/components/animated-background"
 import { ProjectCover } from "@/components/project-cover"
 import { projects, projectCategories } from "@/lib/projects"
+import { ArrowLeft, ArrowUpRight } from "lucide-react"
 
 export default function ProjectsPage() {
-  const [active, setActive] = useState("All")
+  const [activeCategory, setActiveCategory] = useState("All")
 
-  const filtered = useMemo(
-    () => (active === "All" ? projects : projects.filter((p) => p.category === active)),
-    [active],
-  )
+  const filtered =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory)
 
   return (
-    <div className="min-h-screen relative">
-      <AnimatedBackground />
+    <div className="min-h-screen bg-background text-foreground transition-colors">
       <Navbar />
 
-      <section className="pt-24 pb-16 px-4">
-        <div className="container mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-            <Badge className="mb-4">Portfolio</Badge>
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4 tracking-tight">My Projects</h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Embedded systems, robotics, IoT, STEM education and IT infrastructure.
-            </p>
-          </motion.div>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-20 space-y-12">
+        {/* Header */}
+        <section className="space-y-4 pt-4 border-b border-border pb-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1 text-xs text-neutral-600 dark:text-neutral-400 hover:text-foreground font-semibold transition-colors"
+          >
+            <ArrowLeft size={13} />
+            <span>Back to Overview</span>
+          </Link>
 
-          {/* Filter */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12" role="group" aria-label="Filter projects">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+            Engineering & Robotics Projects
+          </h1>
+
+          <p className="text-sm sm:text-base text-neutral-800 dark:text-neutral-200 leading-relaxed max-w-2xl">
+            Selected case studies across autonomous robotics, computer vision, microcontroller firmware (ESP32/Raspberry Pi), sensor telemetry, and STEM lab education.
+          </p>
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap gap-2 pt-2">
             {projectCategories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActive(cat)}
-                aria-pressed={active === cat}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
-                  active === cat
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:bg-muted/70 hover:text-foreground"
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-mono font-bold tracking-wide transition-all cursor-pointer ${
+                  activeCategory === cat
+                    ? "bg-foreground text-background shadow-sm"
+                    : "text-neutral-700 dark:text-neutral-300 hover:text-foreground bg-neutral-100 dark:bg-neutral-900 border border-border"
                 }`}
               >
                 {cat}
               </button>
             ))}
           </div>
+        </section>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filtered.map((project, index) => (
-              <motion.div
-                key={project.slug}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05, duration: 0.4 }}
-                viewport={{ once: true, margin: "-40px" }}
-              >
-                <Link href={`/projects/${project.slug}`} className="group block h-full">
-                  <Card className="h-full overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <ProjectCover
-                      icon={project.icon}
-                      gradient={project.gradient}
-                      title={project.title}
-                      tags={project.tags}
-                    />
-                    <CardContent className="p-6 space-y-3">
-                      <div className="flex items-center justify-between gap-2">
-                        <Badge variant="secondary" className="text-xs">
-                          {project.category}
-                        </Badge>
-                      </div>
-                      <h3 className="text-lg font-bold leading-snug group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                        {project.summary}
-                      </p>
-                      <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
-                        View case study →
-                      </span>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+        {/* Project Grid */}
+        <section className="grid sm:grid-cols-2 gap-5">
+          {filtered.map((project) => (
+            <Link
+              key={project.slug}
+              href={`/projects/${project.slug}`}
+              className="group block rounded-xl border border-border hover:border-foreground/50 bg-card overflow-hidden transition-all duration-300 shadow-sm"
+            >
+              <ProjectCover
+                icon={project.icon}
+                title={project.title}
+                tags={project.tags}
+                badgeText={project.badgeText}
+              />
+              <div className="p-5 space-y-3">
+                <div className="flex items-center justify-between text-xs text-neutral-600 dark:text-neutral-400 font-mono font-semibold">
+                  <span>{project.category}</span>
+                  <span className="text-neutral-700 dark:text-neutral-300 group-hover:text-foreground transition-colors flex items-center gap-0.5">
+                    Read technical breakdown &rarr;
+                  </span>
+                </div>
+                <h3 className="text-base font-bold text-foreground group-hover:underline leading-snug">
+                  {project.title}
+                </h3>
+                <p className="text-xs text-neutral-700 dark:text-neutral-300 line-clamp-3 leading-relaxed">
+                  {project.summary}
+                </p>
+
+                {/* Tech chips */}
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 border border-border"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </section>
+      </main>
 
       <Footer />
     </div>

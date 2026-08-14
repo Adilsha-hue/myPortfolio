@@ -1,133 +1,143 @@
 "use client"
 
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { AnimatedBackground } from "@/components/animated-background"
-import { Cpu, CircuitBoard, Wifi, Megaphone, CheckCircle2, ArrowRight } from "lucide-react"
+import { ArrowLeft, ArrowUpRight } from "lucide-react"
+
+const services = [
+  {
+    title: "Robotics Training & STEM Education",
+    forWho: "Schools & Educational Hubs",
+    description:
+      "Hands-on robotics workshops, Arduino & Raspberry Pi programming, customized K-12 STEM curricula, and science competition mentoring. Currently training 300+ students at BenchMark International School.",
+    deliverables: [
+      "Tailored age-appropriate STEM curricula",
+      "Hands-on hardware & robotics kit workshops",
+      "Tinkering lab setup & equipment maintenance",
+      "Student project mentoring & competition prep",
+    ],
+  },
+  {
+    title: "Embedded Systems & IoT Prototyping",
+    forWho: "Startups, Researchers & Product Teams",
+    description:
+      "End-to-end prototyping and firmware development using ESP32, ESP8266, Raspberry Pi, and Arduino with wireless sensor telemetry and cloud integration.",
+    deliverables: [
+      "Microcontroller firmware (C/C++ & Python)",
+      "Sensor interfacing over UART, I2C & SPI",
+      "Wireless IoT telemetry (MQTT / WebSockets)",
+      "Hardware testing, breadboard assembly & debugging",
+    ],
+  },
+  {
+    title: "Performance Marketing & Ad Creatives",
+    forWho: "Education, Healthcare & SMBs",
+    description:
+      "Data-driven paid advertising on Facebook and Instagram paired with conversion-focused graphic design for client acquisition across Kerala and GCC NRI markets.",
+    deliverables: [
+      "Meta Ads campaign setup, targeting & Instant Forms",
+      "WhatsApp lead capture & qualification funnels",
+      "Social media posters, admission banners & creatives",
+      "Weekly CTR, CPA & ROAS optimization",
+    ],
+  },
+  {
+    title: "Campus Networking & IT Infrastructure",
+    forWho: "Schools, Offices & Commercial Facilities",
+    description:
+      "Reliable enterprise network setup, IP CCTV surveillance deployment, POS systems maintenance, and on-site hardware troubleshooting backed by CCNA fundamentals.",
+    deliverables: [
+      "LAN, router configuration & VLAN segmentation",
+      "IP CCTV camera network & NVR surveillance setup",
+      "Computer lab & classroom audio-visual maintenance",
+      "Hardware troubleshooting & preventive servicing",
+    ],
+  },
+]
 
 export default function ServicesPage() {
-  const services = [
-    {
-      icon: <Cpu className="w-10 h-10" />,
-      title: "Robotics Training & STEM Education",
-      description: "Hands-on robotics and STEM education programs for students and educators",
-      features: [
-        "Robotics & STEM training sessions for schools",
-        "Arduino & Raspberry Pi programming",
-        "Competition preparation & mentoring",
-        "Custom curriculum development",
-      ],
-    },
-    {
-      icon: <CircuitBoard className="w-10 h-10" />,
-      title: "Embedded Systems & IoT Development",
-      description: "Hardware-based solutions built with microcontrollers and IoT technologies",
-      features: [
-        "Arduino, ESP32 & ESP8266 development",
-        "IoT system development & prototypes",
-        "Sensor interfacing & motor control",
-        "PCB assembly & testing",
-      ],
-    },
-    {
-      icon: <Wifi className="w-10 h-10" />,
-      title: "Networking & IT Support",
-      description: "Reliable IT infrastructure and network solutions for institutions and businesses",
-      features: [
-        "LAN & internet configuration",
-        "Router configuration & troubleshooting",
-        "CCTV installation & maintenance",
-        "Computer lab & POS system management",
-      ],
-    },
-    {
-      icon: <Megaphone className="w-10 h-10" />,
-      title: "Digital Marketing & Content",
-      description: "Grow your online presence with effective marketing and engaging content",
-      features: [
-        "SEO & social media marketing",
-        "Content creation & strategy",
-        "Brand presence & engagement growth",
-        "Digital campaign management",
-      ],
-    },
-  ]
-
   return (
-    <div className="min-h-screen relative">
-      <AnimatedBackground />
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar />
 
-      <section className="pt-24 pb-16 px-4">
-        <div className="container mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
-            <Badge className="mb-4">Services</Badge>
-            <h1 className="font-display text-4xl sm:text-5xl font-bold mb-4 tracking-tight">What I Offer</h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Engineering, training and technical support — combining embedded systems, robotics and IT expertise.
-            </p>
-          </motion.div>
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 pt-24 pb-20 space-y-12">
+        {/* Back Link */}
+        <div>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1 text-xs text-neutral-500 hover:text-foreground transition-colors"
+          >
+            <ArrowLeft size={13} />
+            <span>Back to Overview</span>
+          </Link>
+        </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mb-16">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.08 }}
-                viewport={{ once: true, margin: "-40px" }}
-              >
-                <Card className="h-full hover:shadow-xl transition-shadow duration-300">
-                  <CardContent className="p-8 space-y-6">
-                    <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center text-primary">
-                      {service.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold mb-2 tracking-tight">{service.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{service.description}</p>
-                    </div>
-                    <ul className="space-y-3">
-                      {service.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-muted-foreground">
-                          <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Link href="/contact" className="block">
-                      <Button className="w-full">
-                        Get Started <ArrowRight size={16} />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+        {/* Header */}
+        <header className="space-y-3 border-b border-neutral-200 dark:border-neutral-800 pb-8">
+          <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100">
+            Services & Offerings
+          </h1>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl">
+            Engineering solutions, hands-on STEM education, and performance marketing consulting.
+          </p>
+        </header>
+
+        {/* Services List */}
+        <section className="space-y-8">
+          {services.map((service, idx) => (
+            <div
+              key={idx}
+              className="p-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/40 dark:bg-neutral-900/40 space-y-4"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+                <h2 className="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                  {service.title}
+                </h2>
+                <span className="text-xs font-mono text-neutral-400">{service.forWho}</span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                {service.description}
+              </p>
+
+              <div className="space-y-2 pt-2 border-t border-neutral-200/60 dark:border-neutral-800/60">
+                <p className="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold">
+                  Key Deliverables
+                </p>
+                <ul className="grid sm:grid-cols-2 gap-1.5 text-xs text-neutral-700 dark:text-neutral-300">
+                  {service.deliverables.map((d, i) => (
+                    <li key={i} className="flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-neutral-400 shrink-0" />
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </section>
+
+        {/* Bottom CTA */}
+        <footer className="p-6 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50/60 dark:bg-neutral-900/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+              Have a specific project requirement?
+            </h3>
+            <p className="text-xs text-neutral-500 mt-0.5">
+              Let&apos;s discuss scope, hardware components, or campaign objectives.
+            </p>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            className="bg-foreground text-background rounded-3xl p-10 md:p-12 text-center shadow-2xl"
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-1 px-3.5 py-2 rounded-md bg-neutral-900 text-neutral-100 dark:bg-neutral-100 dark:text-neutral-900 text-xs font-medium shrink-0"
           >
-            <h2 className="text-3xl font-bold mb-4 tracking-tight">Ready to Get Started?</h2>
-            <p className="text-lg mb-8 opacity-80">
-              Contact me today to discuss how I can help with your project.
-            </p>
-            <Link href="/contact">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                Contact Me <ArrowRight size={18} />
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+            <span>Inquire now</span>
+            <ArrowUpRight size={12} />
+          </Link>
+        </footer>
+      </main>
 
       <Footer />
     </div>

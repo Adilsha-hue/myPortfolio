@@ -1,14 +1,11 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, ArrowRight, CheckCircle2, Target, Trophy } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ProjectCover } from "@/components/project-cover"
 import { projects, getProject } from "@/lib/projects"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { ArrowLeft, ArrowUpRight } from "lucide-react"
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -21,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = getProject(slug)
   if (!project) return {}
   return {
-    title: `${project.title} | Mohammed Adilsha Afsar M`,
+    title: `${project.title} — Mohammed Adilsha`,
     description: project.summary,
   }
 }
@@ -35,124 +32,179 @@ export default async function ProjectPage({ params }: Props) {
   const next = projects[(index + 1) % projects.length]
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen bg-background text-foreground transition-colors">
       <Navbar />
 
-      <article className="pt-24 pb-16 px-4">
-        <div className="container mx-auto max-w-4xl">
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 pt-24 pb-20 space-y-12">
+        {/* Navigation back */}
+        <div>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors mb-8"
+            className="inline-flex items-center gap-1 text-xs font-semibold text-neutral-600 dark:text-neutral-400 hover:text-foreground transition-colors"
           >
-            <ArrowLeft size={16} /> All projects
+            <ArrowLeft size={13} />
+            <span>Back to all projects</span>
           </Link>
-
-          <header className="mb-10">
-            <div className="flex flex-wrap items-center gap-2 mb-4">
-              <Badge>{project.category}</Badge>
-              {project.tags.map((tag) => (
-                <Badge key={tag} variant="secondary" className="text-xs">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-            <h1 className="text-3xl sm:text-5xl font-bold tracking-tight leading-tight">{project.title}</h1>
-            <p className="mt-4 text-lg text-muted-foreground leading-relaxed">{project.summary}</p>
-          </header>
-
-          {/* Cover */}
-          <div className="mb-10 overflow-hidden rounded-2xl border shadow-sm">
-            <ProjectCover
-              icon={project.icon}
-              gradient={project.gradient}
-              title={project.title}
-              tags={project.tags}
-              className="aspect-[16/7]"
-            />
-          </div>
-
-          {/* Objective */}
-          <section className="mb-10">
-            <h2 className="flex items-center gap-2 text-2xl font-bold mb-4 tracking-tight">
-              <Target size={22} className="text-primary" /> Objective
-            </h2>
-            <p className="text-muted-foreground leading-relaxed text-lg">{project.objective}</p>
-          </section>
-
-          {/* Stack */}
-          <section className="mb-10">
-            <h2 className="text-2xl font-bold mb-4 tracking-tight">Tech Stack</h2>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {project.stack.map((group) => (
-                <Card key={group.group}>
-                  <CardContent className="p-5">
-                    <h3 className="font-semibold mb-3 text-sm uppercase tracking-wide text-primary">{group.group}</h3>
-                    <ul className="space-y-2">
-                      {group.items.map((item) => (
-                        <li key={item} className="text-sm text-muted-foreground flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </section>
-
-          {/* Responsibilities */}
-          <section className="mb-10">
-            <h2 className="text-2xl font-bold mb-4 tracking-tight">What I Did</h2>
-            <ul className="grid sm:grid-cols-2 gap-3">
-              {project.responsibilities.map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-muted-foreground">
-                  <CheckCircle2 size={18} className="text-primary flex-shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          {/* Outcome */}
-          <section className="mb-12">
-            <h2 className="flex items-center gap-2 text-2xl font-bold mb-4 tracking-tight">
-              <Trophy size={22} className="text-primary" /> Outcome
-            </h2>
-            <div className="bg-muted/60 border rounded-2xl p-6">
-              <p className="text-muted-foreground leading-relaxed">{project.outcome}</p>
-            </div>
-          </section>
-
-          {/* Next project */}
-          <aside className="border-t pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">Next project</p>
-              <Link
-                href={`/projects/${next.slug}`}
-                className="text-lg font-bold hover:text-primary transition-colors"
-              >
-                {next.title}
-              </Link>
-            </div>
-            <Link href={`/projects/${next.slug}`}>
-              <Button variant="outline">
-                View <ArrowRight size={16} />
-              </Button>
-            </Link>
-          </aside>
-
-          <div className="mt-12 bg-foreground text-background rounded-2xl p-8 text-center">
-            <h2 className="text-2xl font-bold tracking-tight">Want something like this built?</h2>
-            <p className="mt-2 mb-6 opacity-80">Let's turn your idea into a working embedded or robotics system.</p>
-            <Link href="/contact">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                Start a Conversation <ArrowRight size={18} />
-              </Button>
-            </Link>
-          </div>
         </div>
-      </article>
+
+        {/* Title & Metadata */}
+        <header className="space-y-4 border-b border-border pb-8">
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-neutral-700 dark:text-neutral-300">
+            <span>{project.category}</span>
+            <span>&bull;</span>
+            <span>{project.badgeText || "Embedded System"}</span>
+          </div>
+
+          <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground leading-tight">
+            {project.title}
+          </h1>
+
+          <p className="text-sm sm:text-base text-neutral-800 dark:text-neutral-200 leading-relaxed font-normal">
+            {project.summary}
+          </p>
+
+          <div className="flex flex-wrap gap-1.5 pt-2">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-neutral-200 border border-border"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </header>
+
+        {/* Technical Cover */}
+        <div className="rounded-xl overflow-hidden border border-border shadow-md">
+          <ProjectCover
+            icon={project.icon}
+            title={project.title}
+            tags={project.tags}
+            badgeText={project.badgeText}
+            className="aspect-[16/8]"
+          />
+        </div>
+
+        {/* Technical Specifications & Objective */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-bold">
+            Objective
+          </h2>
+          <p className="text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed font-normal">
+            {project.objective}
+          </p>
+        </section>
+
+        {/* Problem Statement & Architecture */}
+        <section className="grid sm:grid-cols-2 gap-6 pt-2">
+          <div className="space-y-2 p-5 rounded-xl border border-border bg-card shadow-sm">
+            <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-bold">
+              The Engineering Problem
+            </h3>
+            <p className="text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed">
+              {project.problemStatement}
+            </p>
+          </div>
+
+          <div className="space-y-2 p-5 rounded-xl border border-border bg-card shadow-sm">
+            <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-bold">
+              System Architecture
+            </h3>
+            <p className="text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed">
+              {project.solutionArchitecture}
+            </p>
+          </div>
+        </section>
+
+        {/* Hardware & Software Components */}
+        <section className="space-y-4">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-bold">
+            Hardware & Software Components
+          </h2>
+
+          <div className="grid sm:grid-cols-3 gap-4">
+            {project.stack.map((group) => (
+              <div
+                key={group.group}
+                className="p-4 rounded-xl border border-border bg-card space-y-2 shadow-sm"
+              >
+                <h3 className="text-xs font-mono font-bold text-foreground">
+                  {group.group}
+                </h3>
+                <ul className="space-y-1.5 text-xs text-neutral-800 dark:text-neutral-200 font-mono">
+                  {group.items.map((item) => (
+                    <li key={item} className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400 shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Key Responsibilities */}
+        <section className="space-y-3">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-bold">
+            Implementation Responsibilities
+          </h2>
+
+          <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-800 dark:text-neutral-200">
+            {project.responsibilities.map((resp, i) => (
+              <li key={i} className="flex items-start gap-2.5">
+                <span className="text-neutral-500 font-mono font-bold shrink-0 select-none">
+                  {String(i + 1).padStart(2, "0")}.
+                </span>
+                <span>{resp}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Outcome */}
+        <section className="space-y-3 p-5 rounded-xl border border-border bg-card shadow-sm">
+          <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-bold">
+            Outcome & Documentation
+          </h2>
+          <p className="text-xs sm:text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed font-medium">
+            {project.outcome}
+          </p>
+        </section>
+
+        {/* Next Project & Inquiry */}
+        <footer className="pt-8 border-t border-border space-y-6">
+          <div className="flex items-baseline justify-between text-xs font-medium">
+            <span className="text-neutral-600 dark:text-neutral-400">Next Case Study:</span>
+            <Link
+              href={`/projects/${next.slug}`}
+              className="font-bold text-foreground hover:underline inline-flex items-center gap-1"
+            >
+              <span>{next.title}</span>
+              <ArrowUpRight size={13} />
+            </Link>
+          </div>
+
+          <div className="p-6 rounded-2xl border border-border bg-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+            <div>
+              <p className="text-sm font-bold text-foreground">
+                Interested in building hardware prototypes or STEM training?
+              </p>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-1">
+                Reach out to discuss technical feasibility, components, and timelines.
+              </p>
+            </div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-foreground text-background text-xs font-bold shrink-0 hover:opacity-90 transition-opacity"
+            >
+              <span>Get in touch</span>
+              <ArrowUpRight size={13} />
+            </Link>
+          </div>
+        </footer>
+      </main>
 
       <Footer />
     </div>
