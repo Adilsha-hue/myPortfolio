@@ -245,18 +245,18 @@ export function LightboxGallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-between p-3 sm:p-6"
             onClick={closeLightbox}
           >
             {/* Header Toolbar */}
             <div
-              className="absolute top-4 left-4 right-4 flex items-center justify-between z-20 text-white text-xs font-mono"
+              className="w-full max-w-5xl flex items-center justify-between z-20 text-white text-xs font-mono pb-2"
               onClick={(e) => e.stopPropagation()}
             >
-              <span className="font-bold">
+              <span className="font-bold truncate max-w-[60%] text-[11px] sm:text-xs">
                 {currentItem.client} &bull; {activeIdx! + 1} / {filteredItems.length}
               </span>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <button
                   onClick={() => setZoom((z) => Math.min(z + 0.2, 2))}
                   className="p-1.5 hover:opacity-75 text-white"
@@ -277,40 +277,54 @@ export function LightboxGallery() {
               </div>
             </div>
 
-            {/* Arrows */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                prevImage()
-              }}
-              className="absolute left-4 p-2 text-white/80 hover:text-white"
-              aria-label="Previous"
-            >
-              <ChevronLeft size={32} />
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                nextImage()
-              }}
-              className="absolute right-4 p-2 text-white/80 hover:text-white"
-              aria-label="Next"
-            >
-              <ChevronRight size={32} />
-            </button>
+            {/* Image Preview Area with Responsive Navigation */}
+            <div className="relative w-full flex-1 flex items-center justify-center min-h-0 py-2">
+              {/* Previous Arrow */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  prevImage()
+                }}
+                className="absolute left-1 sm:left-4 z-20 p-2 sm:p-3 rounded-full bg-black/50 sm:bg-transparent text-white/80 hover:text-white backdrop-blur-sm sm:backdrop-blur-none transition-all"
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
+              </button>
 
-            {/* Image Preview */}
+              {/* Next Arrow */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  nextImage()
+                }}
+                className="absolute right-1 sm:right-4 z-20 p-2 sm:p-3 rounded-full bg-black/50 sm:bg-transparent text-white/80 hover:text-white backdrop-blur-sm sm:backdrop-blur-none transition-all"
+                aria-label="Next"
+              >
+                <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
+              </button>
+
+              {/* Image Container */}
+              <div
+                className="relative max-h-[75dvh] sm:max-h-[82dvh] max-w-4xl w-full flex items-center justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={currentItem.src}
+                  alt={currentItem.title}
+                  style={{ transform: `scale(${zoom})`, transition: "transform 0.15s ease-out" }}
+                  className="max-h-[72dvh] sm:max-h-[80dvh] max-w-[90vw] sm:max-w-full w-auto object-contain rounded-md shadow-2xl"
+                />
+              </div>
+            </div>
+
+            {/* Bottom Caption Info */}
             <div
-              className="relative max-h-[85vh] max-w-4xl flex items-center justify-center"
+              className="w-full max-w-xl text-center text-white pt-2 z-20"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={currentItem.src}
-                alt={currentItem.title}
-                style={{ transform: `scale(${zoom})`, transition: "transform 0.15s ease-out" }}
-                className="max-h-[80vh] w-auto object-contain rounded-md shadow-2xl"
-              />
+              <p className="text-xs sm:text-sm font-bold leading-tight">{currentItem.title}</p>
+              <p className="text-[11px] sm:text-xs text-neutral-400 mt-0.5 line-clamp-1">{currentItem.description}</p>
             </div>
           </motion.div>
         )}

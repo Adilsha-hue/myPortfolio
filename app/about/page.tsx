@@ -104,7 +104,7 @@ export default function AboutPage() {
         {/* Intro */}
         <section className="space-y-6">
           <div className="flex flex-col-reverse sm:flex-row sm:items-start justify-between gap-6">
-            <div className="space-y-3">
+            <div className="space-y-3 flex-1">
               <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground">
                 Mohammed Adilsha Afsar M
               </h1>
@@ -115,7 +115,9 @@ export default function AboutPage() {
                 Tirur, Malappuram, Kerala, India
               </p>
             </div>
-            <ProfileImage />
+            <div className="w-full max-w-[200px] sm:max-w-[180px] md:max-w-[220px] shrink-0 mx-auto sm:mx-0">
+              <ProfileImage />
+            </div>
           </div>
 
           <div className="space-y-4 text-sm text-neutral-800 dark:text-neutral-200 leading-relaxed pt-2">

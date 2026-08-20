@@ -90,7 +90,7 @@ export function WhatsAppModal() {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="w-full max-w-lg bg-card border rounded-3xl shadow-2xl p-6 relative overflow-hidden"
+              className="w-full max-w-lg max-h-[90dvh] overflow-y-auto bg-card border rounded-3xl shadow-2xl p-4 sm:p-6 relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header */}

@@ -64,7 +64,7 @@ export function InteractiveTerminal() {
         response = (
           <div className="space-y-1 text-xs">
             <p className="text-muted-foreground">Available terminal commands:</p>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1 pt-1 font-mono">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 pt-1 font-mono">
               <div><span className="text-primary font-bold">whoami</span> - Identity & summary</div>
               <div><span className="text-primary font-bold">skills</span> - Hardware & software stack</div>
               <div><span className="text-primary font-bold">projects</span> - Flagship engineering builds</div>

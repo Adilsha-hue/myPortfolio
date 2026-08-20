@@ -82,7 +82,7 @@ export default async function ProjectPage({ params }: Props) {
             title={project.title}
             tags={project.tags}
             badgeText={project.badgeText}
-            className="aspect-[16/8]"
+            className="aspect-[16/9] sm:aspect-[16/8] min-h-[180px]"
           />
         </div>
 
@@ -97,7 +97,7 @@ export default async function ProjectPage({ params }: Props) {
         </section>
 
         {/* Problem Statement & Architecture */}
-        <section className="grid sm:grid-cols-2 gap-6 pt-2">
+        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-2">
           <div className="space-y-2 p-5 rounded-xl border border-border bg-card shadow-sm">
             <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-bold">
               The Engineering Problem
@@ -123,7 +123,7 @@ export default async function ProjectPage({ params }: Props) {
             Hardware & Software Components
           </h2>
 
-          <div className="grid sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {project.stack.map((group) => (
               <div
                 key={group.group}

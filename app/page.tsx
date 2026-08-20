@@ -1,18 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import dynamic from "next/dynamic"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { NoiseOverlay } from "@/components/noise-overlay"
-import { CustomCursor } from "@/components/custom-cursor"
 import { ProfileImage } from "@/components/profile-image"
-import { Marquee } from "@/components/marquee"
-import { InteractiveOscilloscope } from "@/components/interactive-oscilloscope"
-import { InteractiveProjectDrawer } from "@/components/interactive-project-drawer"
-import { LightboxGallery } from "@/components/lightbox-gallery"
-import { PageLoader } from "@/components/page-loader"
 import { projects } from "@/lib/projects"
 import {
   ArrowUpRight,
@@ -24,6 +18,14 @@ import {
   Linkedin,
 } from "lucide-react"
 import { toast } from "sonner"
+
+// Dynamic imports for heavy/client-only components — reduces initial JS parse time
+const NoiseOverlay = dynamic(() => import("@/components/noise-overlay").then(m => ({ default: m.NoiseOverlay })), { ssr: false })
+const CustomCursor = dynamic(() => import("@/components/custom-cursor").then(m => ({ default: m.CustomCursor })), { ssr: false })
+const Marquee = dynamic(() => import("@/components/marquee").then(m => ({ default: m.Marquee })), { ssr: false })
+const InteractiveOscilloscope = dynamic(() => import("@/components/interactive-oscilloscope").then(m => ({ default: m.InteractiveOscilloscope })), { ssr: false })
+const InteractiveProjectDrawer = dynamic(() => import("@/components/interactive-project-drawer").then(m => ({ default: m.InteractiveProjectDrawer })), { ssr: false })
+const LightboxGallery = dynamic(() => import("@/components/lightbox-gallery").then(m => ({ default: m.LightboxGallery })), { ssr: false })
 
 const marqueeKeywords1 = [
   "Autonomous Robotics",
@@ -57,7 +59,6 @@ export default function HomePage() {
   const [activeMode, setActiveMode] = useState<"hardware" | "studio">("hardware")
   const [time, setTime] = useState("")
   const [copiedEmail, setCopiedEmail] = useState(false)
-  const [loaderDone, setLoaderDone] = useState(false)
 
   useEffect(() => {
     const updateTime = () => {
@@ -86,7 +87,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-black font-sans relative overflow-x-hidden transition-colors">
-      <PageLoader onDone={() => setLoaderDone(true)} />
       <NoiseOverlay />
       <CustomCursor />
       <Navbar />
@@ -115,7 +115,7 @@ export default function HomePage() {
               <p className="text-xs font-mono uppercase tracking-[0.3em] text-neutral-600 dark:text-neutral-400 font-semibold">
                 PORTFOLIO OF
               </p>
-              <h1 className="font-display text-5xl sm:text-7xl md:text-8xl font-extrabold uppercase leading-[0.9] tracking-tighter text-foreground">
+              <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold uppercase leading-[0.9] tracking-tighter text-foreground break-words">
                 MOHAMMED
                 <br />
                 <span className="text-neutral-500 dark:text-neutral-400 hover:text-foreground transition-colors duration-300">
@@ -130,12 +130,12 @@ export default function HomePage() {
             </p>
 
             {/* Quick Actions */}
-            <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2 text-xs font-mono">
               <a
                 href="/Adilsha_CV.pdf"
                 download="Mohammed_Adilsha_CV.pdf"
                 data-cursor="DOWNLOAD"
-                className="px-4 py-2 rounded-full bg-foreground text-background font-bold hover:opacity-90 transition-all flex items-center gap-1.5 shadow-sm"
+                className="px-3.5 sm:px-4 py-2 rounded-full bg-foreground text-background font-bold hover:opacity-90 transition-all flex items-center gap-1.5 shadow-sm"
               >
                 <FileText size={13} />
                 <span>RESUME (PDF)</span>
@@ -146,7 +146,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="CHAT"
-                className="px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5"
+                className="px-3.5 sm:px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5"
               >
                 <MessageCircle size={13} className="text-emerald-600 dark:text-emerald-400" />
                 <span>WHATSAPP</span>
@@ -156,7 +156,7 @@ export default function HomePage() {
               <button
                 onClick={copyEmail}
                 data-cursor="COPY"
-                className="px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-3.5 sm:px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5 cursor-pointer"
               >
                 {copiedEmail ? <Check size={13} className="text-emerald-600 dark:text-emerald-400" /> : <Copy size={13} />}
                 <span>COPY EMAIL</span>
@@ -167,7 +167,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="LINKEDIN"
-                className="px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5"
+                className="px-3.5 sm:px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5"
               >
                 <Linkedin size={13} className="text-blue-600 dark:text-blue-400" />
                 <span>LINKEDIN</span>
@@ -178,7 +178,7 @@ export default function HomePage() {
 
           {/* Right Column: Prominent Portrait Photo Card */}
           <div className="lg:col-span-4 flex justify-center lg:justify-end" data-cursor="ADILSHA">
-            <div className="w-full max-w-[280px] sm:max-w-[320px]">
+            <div className="w-full max-w-[260px] sm:max-w-[320px]">
               <ProfileImage />
             </div>
           </div>
@@ -408,14 +408,14 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4 text-xs font-mono">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-4 text-xs font-mono">
             <a
               href="mailto:mohammedadilshaafsarm@gmail.com"
               data-cursor="EMAIL"
-              className="px-6 py-3.5 rounded-full bg-foreground text-background font-bold hover:scale-105 transition-transform inline-flex items-center gap-2 shadow-xl"
+              className="w-full sm:w-auto px-4 sm:px-6 py-3.5 rounded-full bg-foreground text-background font-bold hover:scale-105 transition-transform inline-flex items-center justify-center gap-2 shadow-xl text-[11px] sm:text-xs break-all max-w-full"
             >
-              <Mail size={14} />
-              <span>MOHAMMEDADILSHAAFSARM@GMAIL.COM</span>
+              <Mail size={14} className="shrink-0" />
+              <span className="break-all">MOHAMMEDADILSHAAFSARM@GMAIL.COM</span>
             </a>
 
             <a
@@ -423,11 +423,11 @@ export default function HomePage() {
               target="_blank"
               rel="noreferrer"
               data-cursor="WHATSAPP"
-              className="px-6 py-3.5 rounded-full border border-border bg-card text-foreground font-bold hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all inline-flex items-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full border border-border bg-card text-foreground font-bold hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all inline-flex items-center justify-center gap-2 text-[11px] sm:text-xs"
             >
-              <MessageCircle size={14} className="text-emerald-600 dark:text-emerald-400" />
+              <MessageCircle size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>+91 9946686844</span>
-              <ArrowUpRight size={12} />
+              <ArrowUpRight size={12} className="shrink-0" />
             </a>
           </div>
         </div>
