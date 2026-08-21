@@ -25,6 +25,21 @@ const CustomCursor = dynamic(() => import("@/components/custom-cursor").then(m =
 const Marquee = dynamic(() => import("@/components/marquee").then(m => ({ default: m.Marquee })), { ssr: false })
 const InteractiveOscilloscope = dynamic(() => import("@/components/interactive-oscilloscope").then(m => ({ default: m.InteractiveOscilloscope })), { ssr: false })
 const InteractiveProjectDrawer = dynamic(() => import("@/components/interactive-project-drawer").then(m => ({ default: m.InteractiveProjectDrawer })), { ssr: false })
+const InteractiveCreativeStudio = dynamic(() => import("@/components/interactive-creative-studio").then(m => ({ default: m.InteractiveCreativeStudio })), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full rounded-2xl border border-border bg-card shadow-md overflow-hidden animate-pulse" role="status" aria-label="Loading creative studio">
+      <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4">
+        <span className="w-2 h-2 rounded-full bg-amber-500" />
+        <div className="space-y-2 flex-1">
+          <div className="h-3 w-1/2 bg-neutral-200 dark:bg-neutral-800 rounded" />
+          <div className="h-2.5 w-1/3 bg-neutral-200 dark:bg-neutral-800 rounded" />
+        </div>
+        <div className="h-8 w-20 rounded-full bg-neutral-200 dark:bg-neutral-800" />
+      </div>
+    </div>
+  ),
+})
 const LightboxGallery = dynamic(() => import("@/components/lightbox-gallery").then(m => ({ default: m.LightboxGallery })), { ssr: false })
 
 const marqueeKeywords1 = [
@@ -214,14 +229,14 @@ export default function HomePage() {
         </div>
 
         {/* Dynamic Interactive Stage (Changes based on mode!) */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout" initial={false}>
           {activeMode === "hardware" ? (
             <motion.div
               key="hardware"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               className="space-y-4"
             >
               <div className="flex items-center justify-between text-xs font-mono text-neutral-700 dark:text-neutral-300">
@@ -236,25 +251,37 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.3 }}
-              className="p-6 rounded-2xl border border-border bg-card space-y-4 font-mono text-xs"
+              transition={{ duration: 0.2 }}
+              className="space-y-6"
             >
-              <div className="flex items-center justify-between text-neutral-700 dark:text-neutral-300 font-semibold">
-                <span>[02] PERFORMANCE MARKETING & CREATIVE DIRECTION</span>
+              <div className="flex items-center justify-between text-xs font-mono text-neutral-700 dark:text-neutral-300">
+                <span className="font-semibold">[02] PERFORMANCE MARKETING & CREATIVE DIRECTION</span>
                 <span className="text-amber-600 dark:text-amber-400 font-bold">7+ CLIENT BRANDS</span>
               </div>
               <p className="text-neutral-800 dark:text-neutral-200 font-sans text-sm leading-relaxed">
                 Combining high-converting Meta Ads Manager campaigns (Instant Forms & WhatsApp Funnels) with conversion graphic design across education, healthcare, and commercial sectors.
               </p>
-              <div className="flex flex-wrap gap-2 pt-1">
-                {clientsList.map((c, i) => (
-                  <span
-                    key={i}
-                    className="px-2.5 py-1 rounded bg-neutral-100 dark:bg-neutral-900 border border-border text-[11px] text-neutral-800 dark:text-neutral-200 font-medium"
-                  >
-                    {c.name} &bull; <span className="text-neutral-600 dark:text-neutral-400">{c.role}</span>
-                  </span>
-                ))}
+              <InteractiveCreativeStudio />
+              <div className="rounded-2xl border border-border bg-card shadow-sm">
+                <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3.5 text-xs font-mono text-neutral-700 dark:text-neutral-300 font-semibold">
+                  <span>CREATIVE WORKS &bull; CLIENT BRANDS</span>
+                  <span className="text-amber-600 dark:text-amber-400 font-bold">7+ BRANDS</span>
+                </div>
+                <div className="p-5">
+                  <div className="flex flex-wrap gap-2.5">
+                    {clientsList.map((c, i) => (
+                      <span
+                        key={i}
+                        className="group px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-900 border border-border text-[11px] text-neutral-800 dark:text-neutral-200 font-medium transition-all hover:border-amber-500/50 hover:-translate-y-0.5"
+                      >
+                        {c.name} &bull;{" "}
+                        <span className="text-neutral-600 dark:text-neutral-400 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                          {c.role}
+                        </span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
           )}
