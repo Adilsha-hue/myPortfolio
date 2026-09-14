@@ -59,6 +59,44 @@ const servicesList = [
   },
 ]
 
+const cvHighlights = {
+  experience: [
+    {
+      role: "Performance Marketer & Graphic Designer",
+      org: "Freelance · Multiple Businesses & Brands",
+      period: "2023 — Present",
+      detail: "Meta Ads for lead generation across education, healthcare, dental, photography and professional services — Kerala & GCC targeting, Instant Forms and WhatsApp funnels.",
+    },
+    {
+      role: "Digital Marketing",
+      org: "HiTech Educare",
+      period: "Oct 2023 — Mar 2024",
+      detail: "Facebook & Instagram content calendars, promotional creatives for education consultancy campaigns, engagement monitoring.",
+    },
+    {
+      role: "Chief Creative Officer",
+      org: "IEDC · College of Engineering Vadakara",
+      period: "2022 — 2024",
+      detail: "Led creative direction and visual communication for entrepreneurship and startup initiatives; event branding and campaign materials.",
+    },
+  ],
+  skillGroups: [
+    {
+      label: "Performance Marketing",
+      items: ["Meta Ads", "Lead Generation", "Instant Forms", "WhatsApp Campaigns", "Audience Targeting", "A/B Testing", "Retargeting"],
+    },
+    {
+      label: "Digital Marketing",
+      items: ["Social Media Marketing", "Content Calendars", "Campaign Strategy", "Creative Strategy", "Brand Communication"],
+    },
+    {
+      label: "Graphic Design",
+      items: ["Canva", "Adobe Photoshop", "Adobe Illustrator", "Ad Creatives", "Promotional Posters", "Branding"],
+    },
+  ],
+  industries: ["Education & Admissions", "Healthcare & Dental", "Photography", "Professional Services", "Kerala Market", "GCC / NRI Audience"],
+}
+
 export default function MarketingPage() {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
@@ -84,6 +122,17 @@ export default function MarketingPage() {
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2 text-xs font-mono font-semibold">
+            <a
+              href="/Adilsha_Performance_Marketing_CV.pdf"
+              target="_blank"
+              rel="noreferrer"
+              download="Mohammed_Adilsha_Afsar_M_Performance_Marketing_CV.pdf"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-emerald-700 text-white hover:bg-emerald-600 transition-colors shadow-sm"
+            >
+              <FileDown size={13} />
+              <span>Download Marketing CV (PDF)</span>
+            </a>
+
             <a
               href="/design-portfolio.pdf"
               target="_blank"
@@ -139,6 +188,61 @@ export default function MarketingPage() {
                   {srv.desc}
                 </p>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CV Highlights */}
+        <section className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-3 gap-3">
+            <h2 className="text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-bold">
+              From the Marketing CV
+            </h2>
+            <a
+              href="/Adilsha_Performance_Marketing_CV.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-emerald-700 dark:text-emerald-400 hover:text-emerald-600 transition-colors shrink-0"
+            >
+              <FileDown size={12} />
+              <span>Full PDF</span>
+              <ArrowUpRight size={11} className="opacity-70" />
+            </a>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            {cvHighlights.experience.map((exp, idx) => (
+              <div key={idx} className={`p-5 rounded-xl border border-border bg-card shadow-sm ${idx === 0 ? "md:col-span-2" : ""}`}>
+                <div className="flex flex-wrap items-baseline justify-between gap-1">
+                  <h3 className="text-sm font-bold text-foreground">{exp.role}</h3>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500">{exp.period}</span>
+                </div>
+                <p className="text-[11px] font-mono uppercase tracking-wide text-emerald-700 dark:text-emerald-400 mt-0.5">{exp.org}</p>
+                <p className="text-xs text-neutral-800 dark:text-neutral-200 leading-relaxed mt-1.5">{exp.detail}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-4">
+            {cvHighlights.skillGroups.map((group) => (
+              <div key={group.label} className="space-y-2 p-4 rounded-xl border border-border bg-card shadow-sm">
+                <h3 className="text-[11px] font-mono font-bold uppercase tracking-wider text-neutral-600 dark:text-neutral-300">{group.label}</h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {group.items.map((item) => (
+                    <span key={item} className="text-[10px] px-2 py-0.5 rounded-full border border-border bg-neutral-100/70 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300">
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-1.5 pt-1">
+            {cvHighlights.industries.map((ind) => (
+              <span key={ind} className="text-[10px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
+                {ind}
+              </span>
             ))}
           </div>
         </section>

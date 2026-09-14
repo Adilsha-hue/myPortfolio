@@ -47,7 +47,7 @@ export function Navbar() {
   }, [pathname, mounted])
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "pt-3" : "pt-0"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 [padding-top:env(safe-area-inset-top)] ${scrolled ? "pt-3" : "pt-0"}`}>
       <div className={`mx-auto transition-all duration-500 ${scrolled ? "max-w-3xl px-3" : "max-w-6xl px-4 sm:px-6"}`}>
         <div
           className={`relative flex items-center justify-between h-14 transition-all duration-500 ${
@@ -162,7 +162,7 @@ export function Navbar() {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className={`md:hidden mx-auto mt-2 ${scrolled ? "max-w-3xl px-3" : "max-w-6xl px-4 sm:px-6"}`}
           >
-            <div className="bg-background/90 dark:bg-background/85 backdrop-blur-xl border border-border/60 rounded-2xl shadow-xl shadow-black/10 dark:shadow-black/30 overflow-hidden">
+            <div className="bg-background/90 dark:bg-background/85 backdrop-blur-xl border border-border/60 rounded-2xl shadow-xl shadow-black/10 dark:shadow-black/30 overflow-hidden max-h-[calc(100dvh-6rem)] overflow-y-auto">
               <nav className="p-2 space-y-0.5">
                 {navLinks.map((link) => {
                   const isActive = pathname === link.href

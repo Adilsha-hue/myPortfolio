@@ -18,12 +18,15 @@ export function InteractiveOscilloscope() {
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect()
-      canvas.width = rect.width * window.devicePixelRatio
-      canvas.height = rect.height * window.devicePixelRatio
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
+      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      canvas.width = Math.max(1, Math.round(rect.width * dpr))
+      canvas.height = Math.max(1, Math.round(rect.height * dpr))
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
     resize()
+    const ro = new ResizeObserver(resize)
+    ro.observe(canvas)
     window.addEventListener("resize", resize)
 
     const render = () => {
@@ -61,8 +64,10 @@ export function InteractiveOscilloscope() {
       ctx.beginPath()
       const centerY = height / 2
       const amplitude = height * 0.34
+      // Adaptive step: fewer points on wide/low-power screens keeps 60fps everywhere
+      const step = width > 700 ? 2 : 1
 
-      for (let x = 0; x < width; x++) {
+      for (let x = 0; x < width; x += step) {
         let y = centerY
 
         if (mode === "sine") {
@@ -95,6 +100,7 @@ export function InteractiveOscilloscope() {
 
     return () => {
       cancelAnimationFrame(animationId)
+      ro.disconnect()
       window.removeEventListener("resize", resize)
     }
   }, [activeFrequency, mode])
@@ -117,9 +123,9 @@ export function InteractiveOscilloscope() {
         </div>
       </div>
 
-      {/* Waveform Canvas */}
+      {/* Waveform Canvas — touch-pan-y keeps vertical page scroll working on phones */}
       <div
-        className="relative h-28 sm:h-36 w-full bg-neutral-950 rounded-xl overflow-hidden cursor-ew-resize select-none border border-neutral-800 touch-none"
+        className="relative h-32 xs:h-36 sm:h-40 w-full bg-neutral-950 rounded-xl overflow-hidden cursor-ew-resize select-none border border-neutral-800 [touch-action:pan-y]"
         onMouseMove={(e) => {
           const rect = e.currentTarget.getBoundingClientRect()
           const normX = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))

@@ -115,7 +115,7 @@ export default function AboutPage() {
                 Tirur, Malappuram, Kerala, India
               </p>
             </div>
-            <div className="w-full max-w-[200px] sm:max-w-[180px] md:max-w-[220px] shrink-0 mx-auto sm:mx-0">
+            <div className="w-full max-w-[220px] xs:max-w-[240px] sm:max-w-[200px] md:max-w-[220px] shrink-0 mx-auto sm:mx-0">
               <ProfileImage />
             </div>
           </div>

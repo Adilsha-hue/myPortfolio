@@ -3,9 +3,9 @@ import { ArrowUpRight } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="border-t border-border py-12 text-xs text-neutral-600 dark:text-neutral-400 bg-background transition-colors">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-baseline justify-between gap-4">
-        <div>
+    <footer className="border-t border-border py-10 sm:py-12 text-xs text-neutral-600 dark:text-neutral-400 bg-background transition-colors">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 sm:gap-6">
+        <div className="min-w-0">
           <p className="text-foreground font-semibold text-sm">
             Mohammed Adilsha Afsar M
           </p>
@@ -14,7 +14,7 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-6 font-medium">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 font-medium">
           <a
             href="https://www.linkedin.com/in/mohd-adilsha"
             target="_blank"

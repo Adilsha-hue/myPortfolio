@@ -102,15 +102,15 @@ export function InteractiveCreativeStudio() {
         data-cursor="OPEN STUDIO"
         className="w-full rounded-2xl border border-border bg-card shadow-md overflow-hidden cursor-pointer group transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-900/60"
       >
-        <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4">
+        <div className="flex items-center gap-2.5 sm:gap-4 p-3 sm:p-4 min-w-0">
           <div className="flex items-center gap-2 shrink-0">
             <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
           </div>
 
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-foreground">
+            <div className="flex items-center gap-2 text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider text-foreground truncate">
               CANVAS STUDIO OS
-              <span className="hidden md:inline text-neutral-500 dark:text-neutral-400 normal-case tracking-normal font-medium">
+              <span className="hidden lg:inline text-neutral-500 dark:text-neutral-400 normal-case tracking-normal font-medium truncate">
                 — a Canva-grade design suite, running entirely in your browser
               </span>
             </div>
@@ -125,8 +125,9 @@ export function InteractiveCreativeStudio() {
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 shrink-0 text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider bg-foreground text-background rounded-full px-3 sm:px-4 py-2 group-hover:scale-105 transition-transform">
-            OPEN STUDIO
+          <div className="flex items-center gap-1.5 shrink-0 text-[10px] xs:text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider bg-foreground text-background rounded-full px-2.5 xs:px-3 sm:px-4 py-2 group-hover:scale-105 transition-transform whitespace-nowrap">
+            <span className="hidden xs:inline">OPEN STUDIO</span>
+            <span className="xs:hidden">OPEN</span>
             <Maximize2 size={13} />
           </div>
         </div>

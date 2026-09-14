@@ -10,7 +10,10 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" })
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://adilsha.dev"
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Mohammed Adilsha Afsar M | Embedded Systems, Robotics & Growth Marketing",
   description:
     "Official portfolio of Mohammed Adilsha Afsar M — Electronics & Communication Engineer, Robotics Trainer, and Performance Marketer from Kerala, India.",
@@ -55,6 +58,10 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#fafafa" },
     { media: "(prefers-color-scheme: dark)", color: "#09090b" },

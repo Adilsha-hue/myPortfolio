@@ -426,7 +426,10 @@ export function StudioEditor({ onClose }: { onClose: () => void }) {
     ctx.beginPath()
     ctx.rect(0, 0, pg.w, pg.h)
     ctx.clip()
-    for (const o of pg.objs) drawObj(ctx, o, scheduleDraw)
+    for (const o of pg.objs) {
+      if (o.id === editingRef.current) continue
+      drawObj(ctx, o, scheduleDraw)
+    }
     ctx.restore()
 
     const g = guidesRef.current
@@ -478,6 +481,7 @@ export function StudioEditor({ onClose }: { onClose: () => void }) {
     }
 
     for (const id of selRef.current) {
+      if (id === editingRef.current) continue
       const o = pg.objs.find((x) => x.id === id)
       if (!o || o.hidden) continue
       ctx.strokeStyle = "#f59e0b"
@@ -1839,9 +1843,9 @@ export function StudioEditor({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="absolute inset-0 flex flex-col overflow-hidden bg-neutral-200/70 dark:bg-[#101010] text-neutral-900 dark:text-neutral-100">
-      <header className="h-12 shrink-0 flex items-center gap-2 border-b border-border bg-white/85 dark:bg-neutral-900/85 backdrop-blur px-3 relative z-40">
+      <header className="min-h-12 shrink-0 flex items-center gap-1.5 sm:gap-2 border-b border-border bg-white/85 dark:bg-neutral-900/85 backdrop-blur px-2 sm:px-3 py-1 relative z-40">
         <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
-        <span className="font-mono font-bold uppercase tracking-[0.18em] text-[11px] whitespace-nowrap">Studio OS · Canvas</span>
+        <span className="font-mono font-bold uppercase tracking-[0.18em] text-[10px] sm:text-[11px] whitespace-nowrap truncate">Studio OS · Canvas</span>
         <span className="hidden md:flex items-center gap-1 text-[9px] font-mono uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
           <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
           autosave
@@ -1850,15 +1854,17 @@ export function StudioEditor({ onClose }: { onClose: () => void }) {
           {pg.name} · {pg.w}×{pg.h}
         </span>
 
-        <div className="flex items-center gap-0.5 ml-auto">
+        <div className="flex items-center gap-0.5 ml-auto min-w-0 overflow-x-auto no-scrollbar shrink-0 max-w-[62vw] sm:max-w-none">
           <IconBtn icon={Undo2} label="Undo (Ctrl+Z)" onClick={undoFn} disabled={!histUi.undo} />
           <IconBtn icon={Redo2} label="Redo (Ctrl+Y)" onClick={redoFn} disabled={!histUi.redo} />
-          <div className="w-px h-5 bg-border mx-1" />
-          <IconBtn icon={Keyboard} label="Shortcuts (?)" onClick={() => setShortcutsOpen(true)} />
-          <IconBtn icon={FolderOpen} label="Open project (.json)" onClick={() => jsonInputRef.current?.click()} />
-          <IconBtn icon={Save} label="Save project (.json)" onClick={saveJson} />
-          <IconBtn icon={Trash2} label="Clear page" onClick={clearPage} danger />
-          <div className="w-px h-5 bg-border mx-1" />
+          <div className="w-px h-5 bg-border mx-1 shrink-0 hidden xs:block" />
+          <span className="hidden sm:contents">
+            <IconBtn icon={Keyboard} label="Shortcuts (?)" onClick={() => setShortcutsOpen(true)} />
+            <IconBtn icon={FolderOpen} label="Open project (.json)" onClick={() => jsonInputRef.current?.click()} />
+            <IconBtn icon={Save} label="Save project (.json)" onClick={saveJson} />
+            <IconBtn icon={Trash2} label="Clear page" onClick={clearPage} danger />
+          </span>
+          <div className="w-px h-5 bg-border mx-1 shrink-0 hidden sm:block" />
           <Popover
             align="right"
             width={222}
@@ -1892,8 +1898,8 @@ export function StudioEditor({ onClose }: { onClose: () => void }) {
         <input ref={fileInputRef} type="file" accept="image/*" multiple hidden onChange={(e) => { if (e.target.files?.length) void handleFiles(Array.from(e.target.files)); e.target.value = "" }} />
       </header>
 
-      <div className="flex flex-1 min-h-0">
-        <nav className="w-[52px] shrink-0 border-r border-border bg-white/70 dark:bg-neutral-900/70 backdrop-blur flex flex-col items-center py-1.5 gap-0.5 overflow-y-auto">
+      <div className="flex flex-1 min-h-0 relative">
+        <nav className="w-[52px] shrink-0 border-r border-border bg-white/70 dark:bg-neutral-900/70 backdrop-blur flex flex-col items-center py-1.5 gap-0.5 overflow-y-auto no-scrollbar z-30">
           {RAIL_TABS.map((t) => (
             <button
               key={t.id}
@@ -1911,9 +1917,19 @@ export function StudioEditor({ onClose }: { onClose: () => void }) {
         </nav>
 
         {panel && (
-          <aside className="w-[266px] shrink-0 border-r border-border bg-white dark:bg-neutral-900 overflow-y-auto p-3 space-y-4">
-            <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400 sticky -top-3 pt-0.5 bg-inherit z-10 pb-1">
-              {RAIL_TABS.find((t) => t.id === panel)?.label}
+          <aside className="absolute md:static left-[52px] md:left-auto top-0 bottom-0 z-30 w-[min(264px,calc(100%-52px))] md:w-[266px] shrink-0 border-r border-border bg-white dark:bg-neutral-900 overflow-y-auto p-3 space-y-4 shadow-2xl md:shadow-none">
+            <div className="flex items-center justify-between gap-2 sticky -top-3 pt-0.5 bg-white dark:bg-neutral-900 z-10 pb-1">
+              <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400">
+                {RAIL_TABS.find((t) => t.id === panel)?.label}
+              </span>
+              <button
+                type="button"
+                onClick={() => setPanel(null)}
+                aria-label="Close panel"
+                className="md:hidden w-7 h-7 inline-flex items-center justify-center rounded-lg hover:bg-neutral-200/80 dark:hover:bg-neutral-800 text-neutral-500 cursor-pointer"
+              >
+                <X size={14} />
+              </button>
             </div>
             {panel === "templates" && <TemplatesPanel api={api} />}
             {panel === "elements" && <ElementsPanel api={api} />}
@@ -2196,7 +2212,7 @@ export function StudioEditor({ onClose }: { onClose: () => void }) {
                 }}
                 onPointerDown={(e) => e.stopPropagation()}
                 spellCheck={false}
-                className="absolute z-20 bg-transparent outline-none border border-dashed border-amber-500 rounded-sm overflow-hidden resize-none"
+                className="absolute z-20 bg-transparent outline-none rounded-sm overflow-hidden resize-none"
                 style={{
                   left: editingObj.x * cam.z + cam.tx - (editingObj.w * cam.z) / 2,
                   top: editingObj.y * cam.z + cam.ty - (editingObj.h * cam.z) / 2,
@@ -2214,8 +2230,11 @@ export function StudioEditor({ onClose }: { onClose: () => void }) {
                   WebkitTextStroke: editingObj.fxHollow ? `${Math.max(1, (editingObj.fontSize ?? 48) * 0.05) * cam.z}px ${editingObj.color}` : undefined,
                   background: editingObj.fxBg ?? "transparent",
                   textTransform: editingObj.uppercase ? "uppercase" : undefined,
+                  textDecoration: editingObj.underline && !editingObj.fxHollow ? "underline" : undefined,
                   caretColor: "#d97706",
                   padding: 0,
+                  outline: "1.5px dashed #f59e0b",
+                  outlineOffset: 0,
                   whiteSpace: "pre-wrap",
                   wordBreak: "break-word",
                 }}

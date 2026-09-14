@@ -101,36 +101,37 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-black font-sans relative overflow-x-hidden transition-colors">
+    <div className="min-h-screen bg-background text-foreground selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-black font-sans relative overflow-x-clip transition-colors">
       <NoiseOverlay />
       <CustomCursor />
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 sm:px-6 max-w-6xl mx-auto space-y-12">
+      {/* Hero Section — inner content vertically centered via safe m-auto */}
+      <section className="min-h-svh flex flex-col">
+        <div className="m-auto w-full max-w-6xl px-4 sm:px-6 space-y-10 sm:space-y-12 pt-20 sm:pt-24 pb-12 sm:pb-16">
         {/* Status Telemetry Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-neutral-700 dark:text-neutral-300 border-b border-border pb-4">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="font-semibold text-foreground">TIRUR, KERALA (IST): {time || "LIVE"}</span>
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-[11px] sm:text-xs font-mono text-neutral-700 dark:text-neutral-300 border-b border-border pb-4 min-w-0">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+            <span className="font-semibold text-foreground truncate">TIRUR, KERALA (IST): {time || "LIVE"}</span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="font-medium">B.TECH ECE &bull; CCNA &bull; GROWTH ADS</span>
-            <span className="hidden sm:inline text-neutral-400">/</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-bold hidden sm:inline">AVAILABLE FOR NEW BUILDS</span>
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <span className="font-medium truncate">B.TECH ECE &bull; CCNA &bull; GROWTH ADS</span>
+            <span className="hidden md:inline text-neutral-400 shrink-0">/</span>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold hidden md:inline whitespace-nowrap">AVAILABLE FOR NEW BUILDS</span>
           </div>
         </div>
 
         {/* Hero Grid with Photo & Kinetic Typography */}
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
           {/* Left Column: Massive Kinetic Typography & Bio */}
-          <div className="lg:col-span-8 space-y-6">
-            <div className="space-y-2 select-none">
-              <p className="text-xs font-mono uppercase tracking-[0.3em] text-neutral-600 dark:text-neutral-400 font-semibold">
+          <div className="lg:col-span-8 space-y-5 sm:space-y-6 min-w-0">
+            <div className="space-y-2 select-none min-w-0">
+              <p className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.3em] text-neutral-600 dark:text-neutral-400 font-semibold">
                 PORTFOLIO OF
               </p>
-              <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold uppercase leading-[0.9] tracking-tighter text-foreground break-words">
+              <h1 className="fluid-display font-display font-extrabold uppercase text-foreground">
                 MOHAMMED
                 <br />
                 <span className="text-neutral-500 dark:text-neutral-400 hover:text-foreground transition-colors duration-300">
@@ -192,22 +193,22 @@ export default function HomePage() {
           </div>
 
           {/* Right Column: Prominent Portrait Photo Card */}
-          <div className="lg:col-span-4 flex justify-center lg:justify-end" data-cursor="ADILSHA">
-            <div className="w-full max-w-[260px] sm:max-w-[320px]">
+          <div className="lg:col-span-4 flex justify-center lg:justify-end min-w-0" data-cursor="ADILSHA">
+            <div className="w-full max-w-[220px] xs:max-w-[260px] sm:max-w-[320px] mx-auto lg:mx-0">
               <ProfileImage />
             </div>
           </div>
         </div>
 
         {/* Perspective Mode Switcher Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-border pt-6">
-          <span className="text-xs font-mono uppercase tracking-widest text-neutral-700 dark:text-neutral-300 font-semibold">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 border-t border-border pt-6">
+          <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-neutral-700 dark:text-neutral-300 font-semibold shrink-0">
             EXPLORE PERSPECTIVE:
           </span>
-          <div className="flex p-1 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-border">
+          <div className="grid grid-cols-2 sm:flex w-full sm:w-auto p-1 rounded-2xl sm:rounded-full bg-neutral-100 dark:bg-neutral-900 border border-border gap-1 sm:gap-0">
             <button
               onClick={() => setActiveMode("hardware")}
-              className={`px-5 py-2 rounded-full text-xs font-mono font-bold tracking-wider transition-all cursor-pointer ${
+              className={`px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-mono font-bold tracking-wider transition-all cursor-pointer truncate ${
                 activeMode === "hardware"
                   ? "bg-foreground text-background shadow-md"
                   : "text-neutral-600 dark:text-neutral-400 hover:text-foreground"
@@ -217,7 +218,7 @@ export default function HomePage() {
             </button>
             <button
               onClick={() => setActiveMode("studio")}
-              className={`px-5 py-2 rounded-full text-xs font-mono font-bold tracking-wider transition-all cursor-pointer ${
+              className={`px-3 sm:px-5 py-2 rounded-xl sm:rounded-full text-[11px] sm:text-xs font-mono font-bold tracking-wider transition-all cursor-pointer truncate ${
                 activeMode === "studio"
                   ? "bg-foreground text-background shadow-md"
                   : "text-neutral-600 dark:text-neutral-400 hover:text-foreground"
@@ -239,9 +240,9 @@ export default function HomePage() {
               transition={{ duration: 0.2 }}
               className="space-y-4"
             >
-              <div className="flex items-center justify-between text-xs font-mono text-neutral-700 dark:text-neutral-300">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[11px] sm:text-xs font-mono text-neutral-700 dark:text-neutral-300">
                 <span className="font-semibold">[01] EMBEDDED COMPUTING & SIGNAL TELEMETRY</span>
-                <span className="text-emerald-600 dark:text-emerald-400 font-bold">STATUS: ACTIVE HARDWARE NODE</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold whitespace-nowrap">STATUS: ACTIVE HARDWARE NODE</span>
               </div>
               <InteractiveOscilloscope />
             </motion.div>
@@ -254,9 +255,9 @@ export default function HomePage() {
               transition={{ duration: 0.2 }}
               className="space-y-6"
             >
-              <div className="flex items-center justify-between text-xs font-mono text-neutral-700 dark:text-neutral-300">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[11px] sm:text-xs font-mono text-neutral-700 dark:text-neutral-300">
                 <span className="font-semibold">[02] PERFORMANCE MARKETING & CREATIVE DIRECTION</span>
-                <span className="text-amber-600 dark:text-amber-400 font-bold">7+ CLIENT BRANDS</span>
+                <span className="text-amber-600 dark:text-amber-400 font-bold whitespace-nowrap">7+ CLIENT BRANDS</span>
               </div>
               <p className="text-neutral-800 dark:text-neutral-200 font-sans text-sm leading-relaxed">
                 Combining high-converting Meta Ads Manager campaigns (Instant Forms & WhatsApp Funnels) with conversion graphic design across education, healthcare, and commercial sectors.
@@ -286,6 +287,7 @@ export default function HomePage() {
             </motion.div>
           )}
         </AnimatePresence>
+        </div>
       </section>
 
       {/* Infinite Marquee Tickers */}
@@ -295,13 +297,13 @@ export default function HomePage() {
       </div>
 
       {/* Selected Engineering Projects with Interactive Floating Follower */}
-      <section className="py-20 px-4 sm:px-6 max-w-6xl mx-auto space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border pb-4">
-          <div>
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-400 font-semibold">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 max-w-6xl mx-auto space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 border-b border-border pb-4">
+          <div className="min-w-0">
+            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-400 font-semibold">
               WORKS ARCHIVE
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-foreground mt-1">
+            <h2 className="fluid-h2 font-display font-extrabold uppercase tracking-tight text-foreground mt-1">
               SELECTED PROJECTS
             </h2>
           </div>
@@ -320,13 +322,13 @@ export default function HomePage() {
       </section>
 
       {/* Marketing & Design Gallery Section */}
-      <section className="py-20 px-4 sm:px-6 max-w-6xl mx-auto space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-border pb-4">
-          <div>
-            <span className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-400 font-semibold">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 max-w-6xl mx-auto space-y-6 sm:space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 border-b border-border pb-4">
+          <div className="min-w-0">
+            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-400 font-semibold">
               CREATIVE DIRECTION
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-foreground mt-1">
+            <h2 className="fluid-h2 font-display font-extrabold uppercase tracking-tight text-foreground mt-1">
               DESIGN GALLERY
             </h2>
           </div>
@@ -346,12 +348,12 @@ export default function HomePage() {
       </section>
 
       {/* Authentic Experience Log */}
-      <section className="py-20 px-4 sm:px-6 max-w-6xl mx-auto space-y-8">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 max-w-6xl mx-auto space-y-6 sm:space-y-8">
         <div className="border-b border-border pb-4">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-400 font-semibold">
+          <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.25em] text-neutral-600 dark:text-neutral-400 font-semibold">
             CHRONOLOGY
           </span>
-          <h2 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-foreground mt-1">
+          <h2 className="fluid-h2 font-display font-extrabold uppercase tracking-tight text-foreground mt-1">
             EXPERIENCE & ROLES
           </h2>
         </div>
@@ -401,7 +403,7 @@ export default function HomePage() {
           ].map((exp, idx) => (
             <div
               key={idx}
-              className="py-5 border-b border-border/60 flex flex-col md:flex-row md:items-baseline justify-between gap-3 hover:px-2 transition-all"
+              className="py-5 border-b border-border/60 flex flex-col md:flex-row md:items-baseline justify-between gap-2 sm:gap-3 sm:hover:px-2 transition-all min-w-0"
             >
               <div className="space-y-1 max-w-xl">
                 <h3 className="text-base sm:text-lg font-bold text-foreground">
@@ -421,13 +423,13 @@ export default function HomePage() {
       </section>
 
       {/* Massive Awwwards Magnetic Contact Call to Action */}
-      <section className="py-24 px-4 sm:px-6 max-w-6xl mx-auto">
-        <div className="rounded-3xl border border-border bg-card p-8 sm:p-16 text-center space-y-8 relative overflow-hidden shadow-xl">
-          <div className="space-y-3 max-w-2xl mx-auto">
-            <span className="text-xs font-mono uppercase tracking-[0.3em] text-neutral-600 dark:text-neutral-400 font-semibold">
+      <section className="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div className="rounded-3xl border border-border bg-card p-6 sm:p-10 lg:p-16 text-center space-y-6 sm:space-y-8 relative overflow-hidden shadow-xl">
+          <div className="space-y-3 max-w-2xl mx-auto min-w-0">
+            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.3em] text-neutral-600 dark:text-neutral-400 font-semibold">
               INITIATE COLLABORATION
             </span>
-            <h2 className="font-display text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-foreground leading-none">
+            <h2 className="font-display font-extrabold uppercase tracking-tight text-foreground leading-[1.02] text-[clamp(1.7rem,7vw,3.75rem)] text-balance">
               LET&apos;S BUILD SOMETHING EXTRAORDINARY.
             </h2>
             <p className="text-sm text-neutral-700 dark:text-neutral-300 font-sans max-w-lg mx-auto leading-relaxed pt-2">
@@ -435,14 +437,15 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-4 text-xs font-mono">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-2.5 sm:gap-4 pt-4 text-xs font-mono">
             <a
               href="mailto:mohammedadilshaafsarm@gmail.com"
               data-cursor="EMAIL"
-              className="w-full sm:w-auto px-4 sm:px-6 py-3.5 rounded-full bg-foreground text-background font-bold hover:scale-105 transition-transform inline-flex items-center justify-center gap-2 shadow-xl text-[11px] sm:text-xs break-all max-w-full"
+              title="mohammedadilshaafsarm@gmail.com"
+              className="w-full sm:w-auto sm:max-w-full px-4 sm:px-6 py-3 rounded-full bg-foreground text-background font-bold hover:scale-[1.02] transition-transform inline-flex items-center justify-center gap-2 shadow-xl text-[11px] sm:text-xs min-w-0"
             >
               <Mail size={14} className="shrink-0" />
-              <span className="break-all">MOHAMMEDADILSHAAFSARM@GMAIL.COM</span>
+              <span className="truncate">MOHAMMEDADILSHAAFSARM@GMAIL.COM</span>
             </a>
 
             <a
@@ -450,7 +453,7 @@ export default function HomePage() {
               target="_blank"
               rel="noreferrer"
               data-cursor="WHATSAPP"
-              className="w-full sm:w-auto px-6 py-3.5 rounded-full border border-border bg-card text-foreground font-bold hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all inline-flex items-center justify-center gap-2 text-[11px] sm:text-xs"
+              className="w-full sm:w-auto px-6 py-3 rounded-full border border-border bg-card text-foreground font-bold hover:bg-neutral-100 dark:hover:bg-neutral-900 transition-all inline-flex items-center justify-center gap-2 text-[11px] sm:text-xs whitespace-nowrap"
             >
               <MessageCircle size={14} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>+91 9946686844</span>

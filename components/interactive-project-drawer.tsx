@@ -34,25 +34,25 @@ export function InteractiveProjectDrawer({ projects }: { projects: Project[] }) 
           href={`/projects/${project.slug}`}
           onMouseEnter={() => setHoveredIdx(idx)}
           data-cursor="VIEW"
-          className="group relative flex flex-col md:flex-row md:items-center justify-between py-6 sm:py-8 border-b border-border hover:bg-neutral-500/5 px-2 sm:px-4 rounded-xl transition-all duration-300"
+          className="group relative flex flex-col md:flex-row md:items-center justify-between gap-1 md:gap-6 py-6 sm:py-8 border-b border-border hover:bg-neutral-500/5 px-2 sm:px-4 rounded-xl transition-all duration-300 min-w-0"
         >
           {/* Index & Title */}
-          <div className="flex items-baseline gap-4 md:gap-8">
-            <span className="font-mono text-xs font-bold text-neutral-500 dark:text-neutral-400 group-hover:text-foreground transition-colors">
+          <div className="flex items-baseline gap-3 sm:gap-4 md:gap-8 min-w-0">
+            <span className="font-mono text-xs font-bold text-neutral-500 dark:text-neutral-400 group-hover:text-foreground transition-colors shrink-0">
               {String(idx + 1).padStart(2, "0")}
             </span>
-            <div>
-              <h3 className="font-display text-lg sm:text-2xl font-bold tracking-tight text-foreground group-hover:translate-x-2 transition-transform duration-300">
+            <div className="min-w-0">
+              <h3 className="font-display text-lg sm:text-2xl font-bold tracking-tight text-foreground group-hover:translate-x-2 transition-transform duration-300 text-balance leading-snug">
                 {project.title}
               </h3>
-              <p className="text-xs text-neutral-600 dark:text-neutral-400 font-mono mt-1 line-clamp-1 font-medium">
+              <p className="text-[11px] sm:text-xs text-neutral-600 dark:text-neutral-400 font-mono mt-1 line-clamp-2 font-medium break-words">
                 {project.tags.join(" • ")}
               </p>
             </div>
           </div>
 
           {/* Category & Arrow Action */}
-          <div className="flex items-center gap-6 mt-3 md:mt-0">
+          <div className="flex items-center gap-4 sm:gap-6 mt-2 md:mt-0 pl-7 sm:pl-8 md:pl-0 shrink-0">
             <span className="text-xs font-mono uppercase tracking-wider text-neutral-700 dark:text-neutral-300 font-semibold">
               {project.category}
             </span>

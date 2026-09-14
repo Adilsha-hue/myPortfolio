@@ -326,7 +326,7 @@ export function textMetrics(ctx: CanvasRenderingContext2D, o: Obj) {
   const fs = o.fontSize ?? 48
   const lhm = o.lineHeight ?? 1.18
   let width = 0
-  for (const l of lines) width = Math.max(width, ctx.measureText(l).width + (o.letterSpacing ?? 0))
+  for (const l of lines) width = Math.max(width, ctx.measureText(l).width)
   const height = lines.length * fs * lhm
   return { lines, width, height, fs, lhm }
 }
@@ -460,10 +460,10 @@ export function drawObj(ctx: CanvasRenderingContext2D, o: Obj, onImgLoad?: () =>
     }
     case "emoji": {
       const ch = o.text ?? "✨"
-      ctx.font = `${Math.round(Math.max(o.w, o.h))}px ${EMOJI_STACK}`
+      ctx.font = `${Math.round(Math.max(o.w, o.h) * 1.22)}px ${EMOJI_STACK}`
       ctx.textAlign = "center"
       ctx.textBaseline = "middle"
-      ctx.fillText(ch, 0, Math.round(o.h * 0.06))
+      ctx.fillText(ch, 0, Math.round(o.h * 0.05))
       break
     }
     case "image": {
@@ -487,6 +487,7 @@ export function drawObj(ctx: CanvasRenderingContext2D, o: Obj, onImgLoad?: () =>
       const m = textMetrics(ctx, o)
       const blockH = m.height
       const y0 = -blockH / 2
+      const anchorX = o.align === "left" ? -o.w / 2 : o.align === "right" ? o.w / 2 : 0
       if (o.fxBg) {
         ctx.save()
         ctx.fillStyle = o.fxBg
@@ -494,7 +495,13 @@ export function drawObj(ctx: CanvasRenderingContext2D, o: Obj, onImgLoad?: () =>
         const padY = m.fs * 0.14
         let maxLineW = 0
         for (const l of m.lines) maxLineW = Math.max(maxLineW, ctx.measureText(l).width)
-        roundRectPath(ctx, -maxLineW / 2 - padX, y0 - padY, maxLineW + padX * 2, blockH + padY * 2, m.fs * 0.18)
+        const bgX =
+          o.align === "left"
+            ? anchorX - padX
+            : o.align === "right"
+              ? anchorX - maxLineW - padX
+              : -maxLineW / 2 - padX
+        roundRectPath(ctx, bgX, y0 - padY, maxLineW + padX * 2, blockH + padY * 2, m.fs * 0.18)
         ctx.fill()
         ctx.restore()
       }
@@ -508,13 +515,13 @@ export function drawObj(ctx: CanvasRenderingContext2D, o: Obj, onImgLoad?: () =>
         if (o.fxHollow) {
           ctx.lineWidth = Math.max(1.4, m.fs * 0.055)
           ctx.strokeStyle = o.color
-          ctx.strokeText(line, 0, ly)
+          ctx.strokeText(line, anchorX, ly)
         } else {
           ctx.fillStyle = o.color
-          ctx.fillText(line, 0, ly)
+          ctx.fillText(line, anchorX, ly)
           if (o.underline) {
             const wLine = ctx.measureText(line).width
-            const ux = o.align === "left" ? 0 : o.align === "right" ? -wLine : -wLine / 2
+            const ux = o.align === "right" ? anchorX - wLine : o.align === "center" ? -wLine / 2 : anchorX
             ctx.save()
             ctx.strokeStyle = o.color
             ctx.lineWidth = Math.max(1.2, m.fs * 0.055)

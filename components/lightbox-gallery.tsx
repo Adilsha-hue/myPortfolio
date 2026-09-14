@@ -181,7 +181,7 @@ export function LightboxGallery() {
 
       {/* Premium Gallery Grid */}
       <AnimatePresence mode="popLayout">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 sm:gap-3">
         {filteredItems.map((item, idx) => (
           <motion.div
             key={item.id}
@@ -224,7 +224,7 @@ export function LightboxGallery() {
               </div>
 
               {/* Bottom info panel */}
-              <div className="absolute bottom-0 left-0 right-0 z-10 p-3 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
+              <div className="absolute bottom-0 left-0 right-0 z-10 p-2.5 sm:p-3 translate-y-1 group-hover:translate-y-0 transition-transform duration-300 min-w-0">
                 <p className="text-[10px] font-mono font-semibold text-white/60 uppercase tracking-wider truncate mb-0.5">
                   {item.client}
                 </p>
