@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://adilsha.dev"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://mohdadilsha.vercel.app"
 const now = new Date()
 
 export default function sitemap(): MetadataRoute.Sitemap {
