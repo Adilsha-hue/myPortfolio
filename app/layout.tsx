@@ -31,12 +31,32 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Mohammed Adilsha Afsar M" }],
   creator: "Mohammed Adilsha Afsar M",
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: {
     title: "Mohammed Adilsha Afsar M - Engineer, Robotics Trainer & Growth Marketer",
     description:
       "Bridging deep hardware engineering (Raspberry Pi, ESP32, OpenCV) with high-converting creative performance marketing.",
+    url: SITE_URL,
+    siteName: "Mohammed Adilsha Afsar M — Portfolio",
     type: "website",
     locale: "en_IN",
+    images: [
+      {
+        url: `${SITE_URL}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "Mohammed Adilsha Afsar M — Embedded Systems, Robotics & Growth Marketing",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mohammed Adilsha Afsar M - Engineer, Robotics Trainer & Growth Marketer",
+    description:
+      "Bridging deep hardware engineering (Raspberry Pi, ESP32, OpenCV) with high-converting creative performance marketing.",
+    images: [`${SITE_URL}/og-image.jpg`],
   },
   icons: {
     icon: [
