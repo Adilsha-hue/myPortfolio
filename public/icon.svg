@@ -1,35 +1,5 @@
-<svg width="180" height="180" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @media (prefers-color-scheme: light) {
-      .background { fill: #0a0a0b; }
-      .foreground { fill: #fafafa; }
-    }
-    @media (prefers-color-scheme: dark) {
-      .background { fill: #fafafa; }
-      .foreground { fill: #0a0a0b; }
-    }
-  </style>
-  <rect class="background" width="512" height="512" rx="115" />
-  <!-- chip body outline (evenodd ring) -->
-  <path class="foreground" fill-rule="evenodd" d="M150 150h212v212H150V150zm21 21v170h170V171H171z" />
-  <g class="foreground">
-    <!-- top pins -->
-    <rect x="184" y="86" width="38" height="72" />
-    <rect x="237" y="86" width="38" height="72" />
-    <rect x="290" y="86" width="38" height="72" />
-    <!-- bottom pins -->
-    <rect x="184" y="354" width="38" height="72" />
-    <rect x="237" y="354" width="38" height="72" />
-    <rect x="290" y="354" width="38" height="72" />
-    <!-- left pins -->
-    <rect x="86" y="184" width="72" height="38" />
-    <rect x="86" y="237" width="72" height="38" />
-    <rect x="86" y="290" width="72" height="38" />
-    <!-- right pins -->
-    <rect x="354" y="184" width="72" height="38" />
-    <rect x="354" y="237" width="72" height="38" />
-    <rect x="354" y="290" width="72" height="38" />
-    <!-- core node -->
-    <circle cx="256" cy="256" r="46" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="115" fill="#0a0a0b"/>
+  <text x="256" y="330" font-family="Arial, Helvetica, sans-serif" font-size="215" font-weight="900" fill="#fafafa" text-anchor="middle" letter-spacing="-4">MA</text>
+  <circle cx="410" cy="410" r="32" fill="#10b981"/>
 </svg>

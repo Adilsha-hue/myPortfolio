@@ -109,30 +109,30 @@ export default function HomePage() {
 
       {/* Hero Section — inner content vertically centered via safe m-auto */}
       <section className="min-h-svh flex flex-col">
-        <div className="m-auto w-full max-w-6xl px-4 sm:px-6 space-y-10 sm:space-y-12 pt-20 sm:pt-24 pb-12 sm:pb-16">
-        {/* Status Telemetry Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-[11px] sm:text-xs font-mono text-neutral-700 dark:text-neutral-300 border-b border-border pb-4 min-w-0">
+        <div className="m-auto w-full max-w-6xl px-4 sm:px-6 space-y-7 sm:space-y-12 pt-24 sm:pt-24 pb-12 sm:pb-16">
+        {/* Status Telemetry Bar — roomy card on mobile, inline row on desktop */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 rounded-2xl border border-border bg-card px-4 py-3 text-[11px] sm:text-xs font-mono text-neutral-700 dark:text-neutral-300">
           <div className="flex items-center gap-2 min-w-0">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
             <span className="font-semibold text-foreground truncate">TIRUR, KERALA (IST): {time || "LIVE"}</span>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <span className="font-medium truncate">B.TECH ECE &bull; CCNA &bull; GROWTH ADS</span>
+          <div className="flex items-center gap-2 min-w-0 pl-4 sm:pl-0">
+            <span className="font-medium tracking-wide text-neutral-600 dark:text-neutral-400">B.TECH ECE &bull; CCNA &bull; GROWTH ADS</span>
             <span className="hidden md:inline text-neutral-400 shrink-0">/</span>
             <span className="text-emerald-600 dark:text-emerald-400 font-bold hidden md:inline whitespace-nowrap">AVAILABLE FOR NEW BUILDS</span>
           </div>
         </div>
 
         {/* Hero Grid with Photo & Kinetic Typography */}
-        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 sm:gap-8 lg:gap-12 items-center">
           {/* Left Column: Massive Kinetic Typography & Bio */}
           <div className="lg:col-span-8 space-y-5 sm:space-y-6 min-w-0">
-            <div className="space-y-2 select-none min-w-0">
+            <div className="space-y-3 select-none min-w-0">
               <p className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.3em] text-neutral-600 dark:text-neutral-400 font-semibold">
                 PORTFOLIO OF
               </p>
-              <h1 className="fluid-display font-display font-extrabold uppercase text-foreground">
+              <h1 className="fluid-display font-display font-extrabold uppercase text-foreground text-balance">
                 MOHAMMED
                 <br />
                 <span className="text-neutral-500 dark:text-neutral-400 hover:text-foreground transition-colors duration-300">
@@ -141,18 +141,18 @@ export default function HomePage() {
               </h1>
             </div>
 
-            <p className="text-base sm:text-lg text-neutral-800 dark:text-neutral-200 font-normal leading-relaxed max-w-xl">
+            <p className="text-[15px] sm:text-lg text-neutral-700 dark:text-neutral-300 font-normal leading-7 sm:leading-relaxed max-w-xl text-balance">
               Electronics & Communication Engineer, Robotics Trainer, and Performance Marketer.
               I engineer autonomous embedded systems and drive measurable brand growth.
             </p>
 
-            {/* Quick Actions */}
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 pt-2 text-xs font-mono">
+            {/* Quick Actions — even 2-col grid on phones, natural wrap on desktop */}
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center gap-2.5 sm:gap-3 pt-1 text-xs font-mono">
               <a
                 href="/Adilsha_CV.pdf"
                 download="Mohammed_Adilsha_CV.pdf"
                 data-cursor="DOWNLOAD"
-                className="px-3.5 sm:px-4 py-2 rounded-full bg-foreground text-background font-bold hover:opacity-90 transition-all flex items-center gap-1.5 shadow-sm"
+                className="col-span-2 sm:col-span-1 px-4 py-3 rounded-2xl sm:rounded-full bg-foreground text-background font-bold hover:opacity-90 transition-all flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98]"
               >
                 <FileText size={13} />
                 <span>RESUME (PDF)</span>
@@ -163,7 +163,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="CHAT"
-                className="px-3.5 sm:px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5"
+                className="px-4 py-3 rounded-2xl sm:rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
               >
                 <MessageCircle size={13} className="text-emerald-600 dark:text-emerald-400" />
                 <span>WHATSAPP</span>
@@ -173,7 +173,7 @@ export default function HomePage() {
               <button
                 onClick={copyEmail}
                 data-cursor="COPY"
-                className="px-3.5 sm:px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-4 py-3 rounded-2xl sm:rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98]"
               >
                 {copiedEmail ? <Check size={13} className="text-emerald-600 dark:text-emerald-400" /> : <Copy size={13} />}
                 <span>COPY EMAIL</span>
@@ -184,7 +184,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="LINKEDIN"
-                className="px-3.5 sm:px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5"
+                className="px-4 py-3 rounded-2xl sm:rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
               >
                 <Linkedin size={13} className="text-blue-600 dark:text-blue-400" />
                 <span>LINKEDIN</span>
@@ -197,7 +197,7 @@ export default function HomePage() {
                 rel="me noreferrer"
                 data-cursor="INSTAGRAM"
                 aria-label="Mohammed Adilsha on Instagram @mohd_adilsha"
-                className="px-3.5 sm:px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5"
+                className="px-4 py-3 rounded-2xl sm:rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
               >
                 <Instagram size={13} className="text-pink-600 dark:text-pink-400" />
                 <span>INSTAGRAM</span>
@@ -207,8 +207,8 @@ export default function HomePage() {
           </div>
 
           {/* Right Column: Prominent Portrait Photo Card */}
-          <div className="lg:col-span-4 flex justify-center lg:justify-end min-w-0" data-cursor="ADILSHA">
-            <div className="w-full max-w-[220px] xs:max-w-[260px] sm:max-w-[320px] mx-auto lg:mx-0">
+          <div className="lg:col-span-4 flex justify-center lg:justify-end min-w-0 pt-2 lg:pt-0" data-cursor="ADILSHA">
+            <div className="w-full max-w-[280px] sm:max-w-[320px] mx-auto lg:mx-0">
               <ProfileImage />
             </div>
           </div>
