@@ -14,30 +14,75 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https:
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Mohammed Adilsha Afsar M | Embedded Systems, Robotics & Growth Marketing",
+  title: {
+    default:
+      "Mohammed Adilsha Afsar M | Performance Marketer, Digital Marketer, Graphic Designer, Video Editor & Robotics Trainer in Kerala",
+    template: "%s | Mohammed Adilsha Afsar M",
+  },
   description:
-    "Official portfolio of Mohammed Adilsha Afsar M — Electronics & Communication Engineer, Robotics Trainer, and Performance Marketer from Kerala, India.",
+    "Official portfolio of Mohammed Adilsha Afsar M (Adilsha / Mohd Adilsha) — Performance Marketer, Digital Marketer, Graphic Designer, Video Editor, Robotics Instructor, STEM Trainer & IoT Embedded Engineer in Tirur, Malappuram, Kerala, India. 300+ students mentored, 7+ brands, Meta Ads, WhatsApp funnels, Arduino, ESP32, Raspberry Pi.",
   keywords: [
+    // Name variations — so "adil", "adilsha", "mohammed adilsha" all match
     "Mohammed Adilsha Afsar M",
+    "Mohammed Adilsha",
+    "Adilsha",
+    "Adilsha Afsar",
+    "Mohd Adilsha",
+    "Adil",
     "Adilsha Portfolio",
+    "Mohammed Adilsha Afsar M portfolio",
+    // Role + location intent
+    "Performance Marketer in Kerala",
+    "Performance Marketer Tirur",
+    "Performance Marketer Malappuram",
+    "Digital Marketer in Kerala",
+    "Digital Marketer Tirur",
+    "Graphic Designer in Kerala",
+    "Graphic Designer Tirur",
+    "Graphic Designer Malappuram",
+    "Video Editor in Kerala",
+    "Video Editor Tirur",
     "Robotics Trainer Kerala",
-    "Embedded Systems Engineer",
+    "Robotics Instructor Kerala",
+    "Best Robotics Trainer Kerala",
+    "Best Robotics Instructor Tirur",
+    "STEM Trainer Kerala",
+    "Tinkering Lab Trainer Kerala",
+    "Embedded Systems Engineer Kerala",
     "IoT Developer Kerala",
-    "Meta Ads Specialist",
-    "Creative Director Portfolio",
-    "Tinkering Lab STEM",
+    "ESP32 Developer Kerala",
+    "Raspberry Pi Developer",
     "OpenCV Computer Vision",
-    "CCNA Network Engineer",
+    "Meta Ads Specialist Kerala",
+    "Facebook Ads Expert Kerala",
+    "Instagram Ads Marketer",
+    "WhatsApp Lead Generation Kerala",
+    "CCNA Network Engineer Kerala",
+    "Tinkering Lab STEM",
+    "Creative Director Portfolio Kerala",
   ],
-  authors: [{ name: "Mohammed Adilsha Afsar M" }],
+  authors: [{ name: "Mohammed Adilsha Afsar M", url: SITE_URL }],
   creator: "Mohammed Adilsha Afsar M",
+  publisher: "Mohammed Adilsha Afsar M",
+  category: "portfolio",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: "Mohammed Adilsha Afsar M - Engineer, Robotics Trainer & Growth Marketer",
+    title: "Mohammed Adilsha Afsar M — Performance Marketer, Graphic Designer & Robotics Trainer in Kerala",
     description:
-      "Bridging deep hardware engineering (Raspberry Pi, ESP32, OpenCV) with high-converting creative performance marketing.",
+      "Adilsha (Mohd Adilsha) bridges hardware engineering (Raspberry Pi, ESP32, OpenCV, robotics training for 300+ students) with high-converting Meta Ads, graphic design & video editing for Kerala & India brands.",
     url: SITE_URL,
     siteName: "Mohammed Adilsha Afsar M — Portfolio",
     type: "website",
@@ -47,15 +92,15 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Mohammed Adilsha Afsar M — Embedded Systems, Robotics & Growth Marketing",
+        alt: "Mohammed Adilsha Afsar M (Adilsha) — Performance Marketer, Digital Marketer, Graphic Designer, Video Editor & Robotics Trainer in Kerala, India",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mohammed Adilsha Afsar M - Engineer, Robotics Trainer & Growth Marketer",
+    title: "Mohammed Adilsha Afsar M — Performance Marketer, Designer & Robotics Trainer",
     description:
-      "Bridging deep hardware engineering (Raspberry Pi, ESP32, OpenCV) with high-converting creative performance marketing.",
+      "Adilsha from Tirur, Kerala: Meta Ads, graphic design, video editing, robotics & STEM training, IoT embedded systems.",
     images: [`${SITE_URL}/og-image.jpg`],
   },
   icons: {
@@ -77,6 +122,73 @@ export const metadata: Metadata = {
   },
 }
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
+  name: "Mohammed Adilsha Afsar M",
+  alternateName: ["Adilsha", "Mohammed Adilsha", "Adilsha Afsar", "Mohd Adilsha", "Adil", "Mohd-Adilsha"],
+  url: SITE_URL,
+  image: `${SITE_URL}/og-image.jpg`,
+  jobTitle: [
+    "Performance Marketer",
+    "Digital Marketer",
+    "Graphic Designer",
+    "Video Editor",
+    "Robotics Instructor",
+    "Robotics Trainer",
+    "STEM Trainer",
+    "IoT Developer",
+    "Embedded Systems Engineer",
+  ],
+  description:
+    "Mohammed Adilsha Afsar M (Adilsha) is a Performance Marketer, Digital Marketer, Graphic Designer, Video Editor, Robotics Instructor, STEM Trainer and IoT Embedded Engineer based in Tirur, Malappuram, Kerala, India.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Tirur",
+    addressRegion: "Kerala",
+    addressCountry: "IN",
+  },
+  email: "mailto:mohammedadilshaafsarm@gmail.com",
+  telephone: "+91-9946686844",
+  sameAs: [
+    "https://www.linkedin.com/in/mohd-adilsha",
+    "https://wa.me/919946686844",
+  ],
+  knowsAbout: [
+    "Performance Marketing",
+    "Meta Ads",
+    "Digital Marketing",
+    "Graphic Design",
+    "Video Editing",
+    "Robotics Training",
+    "STEM Education",
+    "Tinkering Lab",
+    "Embedded Systems",
+    "IoT",
+    "ESP32",
+    "Raspberry Pi",
+    "Arduino",
+    "OpenCV",
+    "CCNA Networking",
+  ],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "College of Engineering Vadakara, APJ Abdul Kalam Technological University",
+  },
+}
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  url: SITE_URL,
+  name: "Mohammed Adilsha Afsar M — Portfolio",
+  alternateName: ["Adilsha Portfolio", "Mohammed Adilsha Portfolio"],
+  inLanguage: "en-IN",
+  publisher: { "@id": `${SITE_URL}/#person` },
+}
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -94,7 +206,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-IN" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+      </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased selection:bg-primary selection:text-primary-foreground`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <PageTransition />

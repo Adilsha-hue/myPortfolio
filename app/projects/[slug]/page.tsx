@@ -17,9 +17,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const project = getProject(slug)
   if (!project) return {}
+  const SITE_URL =
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://mohdadilsha.vercel.app"
+  const url = `${SITE_URL}/projects/${slug}`
   return {
-    title: `${project.title} — Mohammed Adilsha`,
-    description: project.summary,
+    title: `${project.title} — Mohammed Adilsha Afsar M, Kerala`,
+    description: `${project.summary} By Adilsha (Mohammed Adilsha Afsar M), Tirur Kerala. ${project.tags.join(", ")}.`,
+    keywords: [...project.tags, "Mohammed Adilsha Afsar M", "Adilsha", project.category],
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${project.title} — Adilsha`,
+      description: project.summary,
+      url,
+      type: "article",
+    },
   }
 }
 

@@ -15,7 +15,7 @@ export function ProfileImage({ className = "" }: { className?: string }) {
       <div className="relative w-full aspect-[4/5] overflow-hidden bg-neutral-950">
         <Image
           src="/images/Adilsha.png"
-          alt="Mohammed Adilsha Afsar M"
+          alt="Mohammed Adilsha Afsar M (Adilsha) — Performance Marketer, Graphic Designer & Robotics Trainer in Kerala, India"
           fill
           sizes="(max-width: 768px) 280px, 360px"
           className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
