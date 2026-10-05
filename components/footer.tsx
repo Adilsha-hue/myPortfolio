@@ -38,6 +38,15 @@ export function Footer() {
               <ArrowUpRight size={12} className="opacity-70" />
             </a>
             <a
+              href="https://www.instagram.com/mohd_adilsha/"
+              target="_blank"
+              rel="me noreferrer"
+              className="text-neutral-700 dark:text-neutral-300 hover:text-foreground inline-flex items-center gap-1 transition-colors"
+            >
+              <span>Instagram</span>
+              <ArrowUpRight size={12} className="opacity-70" />
+            </a>
+            <a
               href="https://wa.me/919946686844"
               target="_blank"
               rel="noreferrer"

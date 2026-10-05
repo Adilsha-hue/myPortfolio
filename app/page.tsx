@@ -16,6 +16,7 @@ import {
   Check,
   Copy,
   Linkedin,
+  Instagram,
 } from "lucide-react"
 import { toast } from "sonner"
 
@@ -187,6 +188,19 @@ export default function HomePage() {
               >
                 <Linkedin size={13} className="text-blue-600 dark:text-blue-400" />
                 <span>LINKEDIN</span>
+                <ArrowUpRight size={11} className="opacity-70" />
+              </a>
+
+              <a
+                href="https://www.instagram.com/mohd_adilsha/"
+                target="_blank"
+                rel="me noreferrer"
+                data-cursor="INSTAGRAM"
+                aria-label="Mohammed Adilsha on Instagram @mohd_adilsha"
+                className="px-3.5 sm:px-4 py-2 rounded-full border border-border bg-card hover:bg-neutral-100 dark:hover:bg-neutral-900 text-foreground font-semibold transition-all flex items-center gap-1.5"
+              >
+                <Instagram size={13} className="text-pink-600 dark:text-pink-400" />
+                <span>INSTAGRAM</span>
                 <ArrowUpRight size={11} className="opacity-70" />
               </a>
             </div>

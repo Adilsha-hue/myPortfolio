@@ -153,6 +153,7 @@ const personJsonLd = {
   telephone: "+91-9946686844",
   sameAs: [
     "https://www.linkedin.com/in/mohd-adilsha",
+    "https://www.instagram.com/mohd_adilsha/",
     "https://wa.me/919946686844",
   ],
   knowsAbout: [
