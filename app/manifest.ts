@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Mohammed Adilsha Afsar M — Portfolio",
+    name: "Mohammed Adilsha",
     short_name: "Adilsha",
     description:
       "Mohammed Adilsha Afsar M (Adilsha): Performance Marketer, Digital Marketer, Graphic Designer, Video Editor, Robotics Trainer & IoT Engineer in Kerala, India.",

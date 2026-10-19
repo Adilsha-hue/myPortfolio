@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" })
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://mohdadilsha.vercel.app"
+const SITE_NAME = "Mohammed Adilsha"
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -84,7 +85,7 @@ export const metadata: Metadata = {
     description:
       "Adilsha (Mohd Adilsha) bridges hardware engineering (Raspberry Pi, ESP32, OpenCV, robotics training for 300+ students) with high-converting Meta Ads, graphic design & video editing for Kerala & India brands.",
     url: SITE_URL,
-    siteName: "Mohammed Adilsha Afsar M — Portfolio",
+    siteName: SITE_NAME,
     type: "website",
     locale: "en_IN",
     images: [
@@ -175,9 +176,9 @@ const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
-  url: SITE_URL,
-  name: "Mohammed Adilsha Afsar M — Portfolio",
-  alternateName: ["Adilsha Portfolio", "Mohammed Adilsha Portfolio"],
+  url: `${SITE_URL}/`,
+  name: SITE_NAME,
+  alternateName: ["Adilsha", "Mohd Adilsha", new URL(SITE_URL).hostname],
   inLanguage: "en-IN",
   publisher: { "@id": `${SITE_URL}/#person` },
 }
