@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" })
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://mohdadilsha.vercel.app"
-const SITE_NAME = "Mohammed Adilsha"
+const SITE_NAME = "Mohammed Adilsha Afsar M"
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
